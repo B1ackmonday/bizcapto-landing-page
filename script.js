@@ -55,13 +55,11 @@ langButtons.forEach((button) => {
     }
     if (reducedMotion) {
       setLanguage(lang);
-      refreshCounts();
       return;
     }
     document.body.classList.add('swapping');
     await wait(170);
     setLanguage(lang);
-    refreshCounts();
     document.body.classList.remove('swapping');
   });
 });
@@ -216,47 +214,12 @@ const revealGroups = [
   ['.plan', 0.12],
   ['.qa details', 0.06],
 ];
-const countUps = document.querySelectorAll('[data-count]');
-
-// ราคาเปลี่ยนตามภาษา: data-count คือค่าภาษาอังกฤษ data-count-th คือค่าภาษาไทย
-function countTarget(el) {
-  const thai = document.documentElement.lang === 'th' && el.dataset.countTh;
-  return Number(thai ? el.dataset.countTh : el.dataset.count);
-}
-
-function showCount(el, progress) {
-  const target = countTarget(el);
-  const value = target * progress;
-  el.textContent = Number.isInteger(target) ? Math.round(value) : value.toFixed(2);
-}
-
-function refreshCounts() {
-  countUps.forEach((el) => {
-    if (el.dataset.counted) showCount(el, 1);
-  });
-}
-
-function countUp(el) {
-  const start = performance.now();
-  const duration = 1100;
-  const frame = (time) => {
-    const t = Math.min((time - start) / duration, 1);
-    showCount(el, 1 - (1 - t) ** 3);
-    if (t < 1) {
-      requestAnimationFrame(frame);
-    } else {
-      el.dataset.counted = 'true';
-    }
-  };
-  requestAnimationFrame(frame);
-}
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('in');
     revealObserver.unobserve(entry.target);
-    if (!reducedMotion) entry.target.querySelectorAll('[data-count]').forEach(countUp);
   });
 }, { rootMargin: '0px 0px -10% 0px' });
 
@@ -268,10 +231,6 @@ revealGroups.forEach(([selector, gap = 0]) => {
   });
 });
 revealObserver.observe(document.querySelector('.closing-logo'));
-countUps.forEach((el) => {
-  if (reducedMotion) el.dataset.counted = 'true';
-  showCount(el, reducedMotion ? 1 : 0);
-});
 
 // ---------- สิ่งที่ขยับตามการเลื่อน ----------
 const rootStyle = document.documentElement.style;

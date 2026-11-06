@@ -196,9 +196,9 @@ h1 span { color: var(--indigo); }
 .plan p { color: var(--ink-muted); }
 .plan-main { background: var(--bg); color: var(--text); border-color: var(--bg); }
 .plan-main p { color: var(--muted); }
-.amount { font: 600 clamp(2rem, 4vw, 2.75rem)/1.3 var(--head); margin: .3rem 0 .5rem; }
+.amount { font: 600 clamp(1.7rem, 3vw, 2.2rem)/1.35 var(--head); margin: .3rem 0 .5rem; }
 .plan .amount, .plan-main .amount { color: inherit; }
-.amount small { font: 400 1rem var(--body); color: inherit; opacity: .75; }
+.plan-main .amount { background: linear-gradient(90deg, var(--indigo), #c4c9ff, var(--amber), var(--indigo)); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 9s linear infinite; }
 .fine { max-width: 860px; margin-top: 1rem; font-size: .95rem; color: var(--ink-muted); }
 
 .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 6vw, 5rem); }
@@ -229,6 +229,7 @@ h1 span { color: var(--indigo); }
   .bento, .plans { grid-template-columns: 1fr; }
   .tile-search, .tile-excel { grid-column: auto; }
   .actions > * { flex: 1 1 100%; }
+  .stores .soon { flex: 1 1 0; padding-inline: .5rem; }
   .frame-corners { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -266,6 +267,8 @@ h1 span { background: linear-gradient(90deg, var(--indigo), #c4c9ff, var(--amber
 .btn { transition: transform .2s ease, background-color .2s ease, border-color .2s ease, color .2s ease; }
 .btn-line:hover { transform: translateY(-3px); background: var(--text); border-color: var(--text); color: var(--bg); }
 .soon { position: relative; overflow: hidden; }
+.stores { display: flex; gap: .7rem; }
+.closing .stores { justify-content: center; }
 .soon::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgb(255 255 255 / .28), transparent); transform: skewX(-18deg); animation: shine 5s ease-in-out infinite; }
 @keyframes shine { 0%, 62% { left: -60%; } 100% { left: 130%; } }
 
@@ -387,7 +390,6 @@ html:not(.js) .belt { display: none; }
 
 /* ราคา */
 @property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-.plan { font-variant-numeric: tabular-nums; }
 .js .plan.reveal.in { transition: opacity .7s ease, transform .3s ease; transition-delay: var(--d, 0s), 0s; }
 .js .plan.reveal.in:hover { transform: translateY(-6px); }
 .plan-main { position: relative; isolation: isolate; border-color: transparent; }
@@ -432,5 +434,5 @@ html:not(.js) .belt { display: none; }
   .js .reveal, .js .sheet tr, .js .checks li::before { opacity: 1; scale: 1; transform: none; transition: none; }
   .js .closing-logo path { opacity: 1; stroke-dashoffset: 0; }
   .qa details::details-content { transition: none; }
-  h1 span { background: none; color: var(--indigo); }
+  h1 span, .plan-main .amount { background: none; color: var(--indigo); animation: none; }
 }
