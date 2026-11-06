@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BizCapto | Business card scanner that keeps your contacts on your phone</title>
+  <meta name="description" content="BizCapto scans business cards into searchable contacts. It works offline, needs no account, and keeps your cards on your phone.">
+  <meta name="theme-color" content="#0f1117">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f1117'/%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round' transform='translate(11 11) scale(.78)'%3E%3Cpath d='M77 31A33 33 0 1 0 77 69' stroke='%235b5fea' stroke-width='8'/%3E%3Cpath d='M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75' stroke='%23818cf8' stroke-width='5.5'/%3E%3Cpath d='M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38' stroke='%23eceef5' stroke-width='6.5'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Poppins:wght@500;600&family=Prompt:wght@500;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // เลือกภาษาก่อนหน้าเว็บแสดง: ลิงก์ ?lang=th > ค่าที่เคยเลือก > ภาษาของเครื่อง
+    (function () {
+      var fromUrl = new URLSearchParams(location.search).get('lang');
+      var saved = null;
+      try { saved = localStorage.getItem('bizcapto-lang'); } catch (e) { /* เบราว์เซอร์ปิดการเก็บค่า */ }
+      var device = (navigator.language || '').toLowerCase().indexOf('th') === 0 ? 'th' : 'en';
+      var lang = fromUrl === 'th' || fromUrl === 'en' ? fromUrl : saved || device;
+      document.documentElement.lang = lang;
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" class="sprite" aria-hidden="true">
+    <symbol id="logo" viewBox="0 0 100 100">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M77 31A33 33 0 1 0 77 69" stroke="#5b5fea" stroke-width="8"/>
+        <path d="M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75" stroke="#818cf8" stroke-width="5.5"/>
+        <path d="M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38" stroke="#eceef5" stroke-width="6.5"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <a class="skip" href="#how" data-i18n="skip">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="#top"><svg aria-hidden="true"><use href="#logo"/></svg>BizCapto</a>
+      <nav class="nav" aria-label="Main" data-i18n-aria="nav.label">
+        <a href="#how" data-i18n="nav.how">How it works</a>
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="lang.label">
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="th" aria-pressed="false">ไทย</button>
+      </div>
+    </div>
+    <span class="scroll-bar" aria-hidden="true"></span>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="hero">
+      <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Business card scanner for Android</p>
+          <h1 data-i18n="hero.title">Scan the card.<br>Keep the contact.<br><span>Stored on your phone.</span></h1>
+          <p class="lead" data-i18n="hero.lead">BizCapto turns a paper business card into a contact you can search, call and email. It works offline, with no account and no cloud.</p>
+          <div class="actions">
+            <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>Google Play</strong></span>
+            <a class="btn btn-line" href="#how" data-i18n="hero.secondary">See how it works</a>
+          </div>
+        </div>
+
+        <figure class="demo">
+          <div class="frame-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="pills" aria-hidden="true">
+            <span class="pill pill-a" data-depth="26" data-i18n="pill.offline">Works offline</span>
+            <span class="pill pill-b" data-depth="-20" data-i18n="pill.account">No account</span>
+            <span class="pill pill-c" data-depth="34" data-i18n="pill.excel">Excel export</span>
+          </div>
+          <div class="bob">
+          <div class="phone" id="phone" data-step="0" role="img" aria-label="Illustration: a phone scans a sample business card and fills in the contact fields" data-i18n-aria="demo.alt">
+            <div class="screen" aria-hidden="true">
+              <span class="flash"></span>
+              <div class="cam">
+                <p class="cam-hint" data-i18n="demo.hint">Fit the card inside the frame</p>
+                <div class="cam-target">
+                  <div class="bizcard" id="bizcard">
+                    <span class="cl cl-name" data-card="headline">Maya Chen (Mai)</span>
+                    <span class="cl cl-title" data-card="title">Product Designer</span>
+                    <span class="cl cl-co" data-card="company">Harbor Lane Studio</span>
+                    <span class="cl cl-tel" data-card="phone">+66 2 000 0000</span>
+                    <span class="cl cl-mail" data-card="email">maya@example.com</span>
+                  </div>
+                  <span class="scanline"></span>
+                  <i></i><i></i><i></i><i></i>
+                </div>
+                <span class="shutter"></span>
+              </div>
+              <div class="review">
+                <p class="review-title" data-i18n="demo.review">Review card</p>
+                <dl>
+                  <div style="--i:0"><dt data-i18n="demo.name">Name</dt><dd data-field="name">Maya Chen</dd></div>
+                  <div style="--i:1"><dt data-i18n="demo.nick">Nickname</dt><dd data-field="nickname">Mai</dd></div>
+                  <div style="--i:2"><dt data-i18n="demo.jobtitle">Job title</dt><dd data-field="title">Product Designer</dd></div>
+                  <div style="--i:3"><dt data-i18n="demo.company">Company</dt><dd data-field="company">Harbor Lane Studio</dd></div>
+                  <div style="--i:4"><dt data-i18n="demo.phone">Phone</dt><dd data-field="phone">+66 2 000 0000</dd></div>
+                  <div style="--i:5"><dt data-i18n="demo.email">Email</dt><dd data-field="email">maya@example.com</dd></div>
+                </dl>
+                <span class="save" data-i18n="demo.save">Save</span>
+                <span class="saved" data-i18n="demo.saved">Saved on this phone</span>
+              </div>
+            </div>
+          </div>
+          </div>
+          <figcaption>
+            <span data-i18n="demo.caption">Illustration with a made-up sample card</span>
+            <button type="button" class="replay" id="demoToggle" data-paused="false"><span class="when-playing" data-i18n="demo.pause">Pause</span><span class="when-paused" data-i18n="demo.play">Play</span></button>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="belt" id="belt" aria-hidden="true">
+      <div class="belt-track" data-belt="paper"></div>
+      <div class="belt-clip"><div class="belt-track" data-belt="data"></div></div>
+      <div class="belt-frame"><i></i><i></i><i></i><i></i><span></span></div>
+    </div>
+
+    <section id="how" class="section how">
+      <div class="wrap">
+        <h2 data-i18n="how.title">Three steps, about as long as a handshake</h2>
+        <div class="steps-wrap" id="steps">
+        <span class="steps-line" aria-hidden="true"><i></i></span>
+        <ol class="steps">
+          <li>
+            <span class="num">1</span>
+            <h3 data-i18n="how.1.title">Point the camera</h3>
+            <p data-i18n="how.1.text">Line the card up in the frame, or pick a photo from your gallery. Turn on the torch in a dim room.</p>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <h3 data-i18n="how.2.title">BizCapto reads it</h3>
+            <p data-i18n="how.2.text">Text recognition runs on your phone and sorts the card into name, job title, company, phone and email.</p>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <h3 data-i18n="how.3.title">Check and save</h3>
+            <p data-i18n="how.3.text">Fix anything that looks off before you save. The original scanned text stays visible beside the form.</p>
+          </li>
+        </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section features">
+      <div class="wrap">
+        <h2 data-i18n="feat.title">A stack of cards you can actually use</h2>
+        <div class="bento">
+          <article class="tile tile-search">
+            <h3 data-i18n="feat.search.title">Find anyone in seconds</h3>
+            <p data-i18n="feat.search.text">Search by name, nickname or company. Sort by recent, A to Z or date added. Try it:</p>
+            <div class="search-demo">
+              <label class="sr-only" for="q" data-i18n="feat.search.label">Search sample cards</label>
+              <input id="q" type="search" autocomplete="off" placeholder="Search cards" data-i18n-placeholder="feat.search.placeholder">
+              <ul id="people">
+                <li data-find="maya chen mai harbor lane studio"><b>Maya Chen</b><span>Harbor Lane Studio</span></li>
+                <li data-find="anan sukjai ton river bakery"><b>Anan Sukjai</b><span>River Bakery</span></li>
+                <li data-find="lena park blue door logistics"><b>Lena Park</b><span>Blue Door Logistics</span></li>
+                <li data-find="niran wong bee clinic"><b>Niran Wong</b><span>Bee Clinic</span></li>
+              </ul>
+              <p class="none" id="none" hidden data-i18n="feat.search.none">No sample card matches.</p>
+            </div>
+          </article>
+
+          <article class="tile tile-excel">
+            <h3 data-i18n="feat.excel.title">Your data, in Excel</h3>
+            <p data-i18n="feat.excel.text">Export every card to .xlsx and import it back. That is also how you move to a new phone.</p>
+            <table class="sheet" aria-hidden="true">
+              <tr><th data-i18n="demo.name">Name</th><th data-i18n="demo.company">Company</th></tr>
+              <tr><td>Maya Chen</td><td>Harbor Lane</td></tr>
+              <tr><td>Anan Sukjai</td><td>River Bakery</td></tr>
+              <tr><td>Lena Park</td><td>Blue Door</td></tr>
+              <tr><td>Niran Wong</td><td>Bee Clinic</td></tr>
+            </table>
+          </article>
+
+          <article class="tile">
+            <svg class="ico ico-call" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 6-3 2a13 13 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A18 18 0 0 1 4 5a2 2 0 0 1 2-2Z"/></svg>
+            <h3 data-i18n="feat.act.title">Reach out in one tap</h3>
+            <p data-i18n="feat.act.text">Call, email or look someone up on LinkedIn straight from their card.</p>
+          </article>
+          <article class="tile">
+            <svg class="ico ico-share" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg>
+            <h3 data-i18n="feat.share.title">Share to LINE and more</h3>
+            <p data-i18n="feat.share.text">Send a card as text through your phone's share menu.</p>
+          </article>
+          <article class="tile">
+            <svg class="ico ico-dup" viewBox="0 0 24 24" aria-hidden="true"><rect class="dup-a" x="3" y="3" width="13" height="13" rx="3"/><rect class="dup-b" x="8" y="8" width="13" height="13" rx="3"/></svg>
+            <h3 data-i18n="feat.dup.title">No double entries</h3>
+            <p data-i18n="feat.dup.text">BizCapto warns you when a phone number or email is already saved.</p>
+          </article>
+          <article class="tile">
+            <svg class="ico ico-star" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2 1.2-6.8-5-4.9 6.9-1Z"/></svg>
+            <h3 data-i18n="feat.star.title">Stars and dark mode</h3>
+            <p data-i18n="feat.star.text">Star the people who matter, then filter to them. Light, dark or follow your system.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" class="section privacy">
+      <div class="priv-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="wrap privacy-grid">
+        <div>
+          <h2 data-i18n="priv.title">Business cards are other people's personal data. We treat them that way.</h2>
+          <p class="lead" data-i18n="priv.lead">The Android app has no internet permission, so your contacts have no route off the phone unless you export or share them yourself.</p>
+        </div>
+        <ul class="checks">
+          <li data-i18n="priv.1">No account or sign-in</li>
+          <li data-i18n="priv.2">No cloud sync and no analytics</li>
+          <li data-i18n="priv.3">Camera is the only permission it asks for</li>
+          <li data-i18n="priv.4">Photos taken in the app are deleted once the text is read</li>
+          <li data-i18n="priv.5">Left out of Android's automatic cloud backup</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pricing" class="section pricing">
+      <div class="wrap">
+        <h2 data-i18n="price.title">Pay once. No subscription.</h2>
+        <div class="plans">
+          <article class="plan">
+            <h3 data-i18n="price.free.title">Try it free</h3>
+            <p class="amount"><span data-count="10">10</span> <span data-i18n="price.free.unit">cards</span></p>
+            <p data-i18n="price.free.text">Scan or import your first 10 cards at no cost, with every feature included.</p>
+          </article>
+          <article class="plan plan-main">
+            <h3 data-i18n="price.paid.title">Unlock for good</h3>
+            <p class="amount"><span data-i18n="price.paid.prefix">$</span><span data-count="11.99" data-count-th="399">11.99</span> <span data-i18n="price.paid.unit"></span> <small data-i18n="price.paid.once">one time</small></p>
+            <p data-i18n="price.paid.text">Save as many cards as you like. One in-app purchase, with nothing to renew.</p>
+          </article>
+        </div>
+        <p class="fine" data-i18n="price.note">Planned launch pricing, which may change before release. Your saved cards stay viewable and exportable either way.</p>
+      </div>
+    </section>
+
+    <section id="faq" class="section faq">
+      <div class="wrap faq-grid">
+        <h2 data-i18n="faq.title">Good questions</h2>
+        <div class="qa">
+          <details open>
+            <summary data-i18n="faq.1.q">Can it read Thai business cards?</summary>
+            <p data-i18n="faq.1.a">English reads well. Thai support is included but still improving, so some Thai words may come out wrong. That is why you review every card before saving.</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.2.q">Do I need the internet?</summary>
+            <p data-i18n="faq.2.a">No. Scanning, reading and saving all happen on the phone. Only the LinkedIn button opens your browser, and only when you tap it.</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.3.q">When can I download it?</summary>
+            <p data-i18n="faq.3.a">BizCapto is still in development and is not on Google Play yet. It will need Android 7.0 or newer.</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.4.q">Is there an iPhone version?</summary>
+            <p data-i18n="faq.4.a">It is planned. Android comes first and the iPhone version is still being built.</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.5.q">Is the app in Thai?</summary>
+            <p data-i18n="faq.5.a">The app screens are in English for now. A Thai version of the screens is planned.</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.6.q">What happens if I change phones?</summary>
+            <p data-i18n="faq.6.a">Export your cards to Excel on the old phone and import the file on the new one. There is no cloud copy, so keep that file safe.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <svg class="closing-logo" viewBox="0 0 100 100" aria-hidden="true">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path pathLength="1" d="M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75" stroke="#818cf8" stroke-width="5.5"/>
+            <path pathLength="1" d="M77 31A33 33 0 1 0 77 69" stroke="#5b5fea" stroke-width="8"/>
+            <path pathLength="1" d="M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38" stroke="#eceef5" stroke-width="6.5"/>
+          </g>
+        </svg>
+        <h2 data-i18n="close.title">Your next stack of cards deserves better than a desk drawer.</h2>
+        <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>Google Play</strong></span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <span>© 2026 BizCapto · RMshowdown</span>
+      <span data-i18n="foot.note">This website uses no cookies or analytics.</span>
+    </div>
+  </footer>
+
+  <script src="th.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
