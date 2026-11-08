@@ -20,6 +20,7 @@ const SAMPLE_CARDS = [
 const textNodes = [...document.querySelectorAll('[data-i18n]')].map((el) => ({ el, key: el.dataset.i18n, en: el.innerHTML }));
 const ariaNodes = [...document.querySelectorAll('[data-i18n-aria]')].map((el) => ({ el, key: el.dataset.i18nAria, en: el.getAttribute('aria-label') }));
 const placeholderNodes = [...document.querySelectorAll('[data-i18n-placeholder]')].map((el) => ({ el, key: el.dataset.i18nPlaceholder, en: el.placeholder }));
+const altNodes = [...document.querySelectorAll('[data-i18n-alt]')].map((el) => ({ el, key: el.dataset.i18nAlt, en: el.alt }));
 const metaDesc = document.querySelector('meta[name="description"]');
 const metaEn = { title: document.title, desc: metaDesc.content };
 const langSwitch = document.querySelector('.lang');
@@ -33,6 +34,7 @@ function setLanguage(lang) {
   textNodes.forEach((n) => { n.el.innerHTML = pick(n); });
   ariaNodes.forEach((n) => n.el.setAttribute('aria-label', pick(n)));
   placeholderNodes.forEach((n) => { n.el.placeholder = pick(n); });
+  altNodes.forEach((n) => { n.el.alt = pick(n); });
   document.title = thai ? TH['meta.title'] : metaEn.title;
   metaDesc.content = thai ? TH['meta.desc'] : metaEn.desc;
 }
@@ -202,6 +204,7 @@ const revealGroups = [
   ['.steps li', 0.14],
   ['.tile', 0.07],
   ['.checks li', 0.1],
+  ['.shot', 0.12],
   ['.plan', 0.12],
   ['.qa details', 0.06],
 ];
