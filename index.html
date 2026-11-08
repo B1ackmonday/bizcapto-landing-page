@@ -163,15 +163,16 @@
         <div class="bento">
           <article class="tile tile-search">
             <h3 data-i18n="feat.search.title">Find anyone in seconds</h3>
-            <p data-i18n="feat.search.text">Search by name, nickname or company. Sort by recent, A to Z or date added. Try it:</p>
+            <p data-i18n="feat.search.text">Search by name, nickname, job title, company, phone number or email. Sort by recent, A to Z or date added. Try it:</p>
             <div class="search-demo">
               <label class="sr-only" for="q" data-i18n="feat.search.label">Search sample cards</label>
               <input id="q" type="search" autocomplete="off" placeholder="Search cards" data-i18n-placeholder="feat.search.placeholder">
+              <!-- data-find = ข้อความที่ค้นได้, data-phone = เบอร์ (ค้นด้วยตัวเลขอย่างน้อย 3 ตัว เหมือนในแอป) -->
               <ul id="people">
-                <li data-find="maya collins may harbor lane studio"><b>Maya Collins</b><span>Harbor Lane Studio</span></li>
-                <li data-find="daniel brooks dan river bakery"><b>Daniel Brooks</b><span>River Bakery</span></li>
-                <li data-find="lena fischer len blue door logistics"><b>Lena Fischer</b><span>Blue Door Logistics</span></li>
-                <li data-find="omar haddad omi northpoint clinic"><b>Omar Haddad</b><span>Northpoint Clinic</span></li>
+                <li data-find="maya collins may product designer harbor lane studio maya@example.com" data-phone="+1 555 0100"><b>Maya Collins</b><span class="co">Harbor Lane Studio</span><span class="ph">+1 555 0100</span></li>
+                <li data-find="daniel brooks dan head baker river bakery daniel@example.com" data-phone="+1 555 0101"><b>Daniel Brooks</b><span class="co">River Bakery</span><span class="ph">+1 555 0101</span></li>
+                <li data-find="lena fischer len operations lead blue door logistics lena@example.com" data-phone="+1 555 0102"><b>Lena Fischer</b><span class="co">Blue Door Logistics</span><span class="ph">+1 555 0102</span></li>
+                <li data-find="omar haddad omi clinic manager northpoint clinic omar@example.com" data-phone="+1 555 0103"><b>Omar Haddad</b><span class="co">Northpoint Clinic</span><span class="ph">+1 555 0103</span></li>
               </ul>
               <p class="none" id="none" hidden data-i18n="feat.search.none">No sample card matches.</p>
             </div>
@@ -181,11 +182,11 @@
             <h3 data-i18n="feat.excel.title">Your data, in Excel</h3>
             <p data-i18n="feat.excel.text">Export every card to .xlsx and import it back. That is also how you move to a new phone.</p>
             <table class="sheet" aria-hidden="true">
-              <tr><th data-i18n="demo.name">Name</th><th data-i18n="demo.company">Company</th></tr>
-              <tr><td>Maya Collins</td><td>Harbor Lane</td></tr>
-              <tr><td>Daniel Brooks</td><td>River Bakery</td></tr>
-              <tr><td>Lena Fischer</td><td>Blue Door</td></tr>
-              <tr><td>Omar Haddad</td><td>Northpoint</td></tr>
+              <tr><th data-i18n="demo.name">Name</th><th class="col-title" data-i18n="demo.jobtitle">Job title</th><th class="col-co" data-i18n="demo.company">Company</th><th data-i18n="demo.phone">Phone</th><th class="col-mail" data-i18n="demo.email">Email</th></tr>
+              <tr><td>Maya Collins<span class="sub">maya@example.com</span></td><td class="col-title">Product Designer</td><td class="col-co">Harbor Lane</td><td>+1 555 0100</td><td class="col-mail">maya@example.com</td></tr>
+              <tr><td>Daniel Brooks<span class="sub">daniel@example.com</span></td><td class="col-title">Head Baker</td><td class="col-co">River Bakery</td><td>+1 555 0101</td><td class="col-mail">daniel@example.com</td></tr>
+              <tr><td>Lena Fischer<span class="sub">lena@example.com</span></td><td class="col-title">Operations Lead</td><td class="col-co">Blue Door</td><td>+1 555 0102</td><td class="col-mail">lena@example.com</td></tr>
+              <tr><td>Omar Haddad<span class="sub">omar@example.com</span></td><td class="col-title">Clinic Manager</td><td class="col-co">Northpoint</td><td>+1 555 0103</td><td class="col-mail">omar@example.com</td></tr>
             </table>
           </article>
 

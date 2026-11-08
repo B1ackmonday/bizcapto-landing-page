@@ -156,7 +156,7 @@ h1 span { color: var(--indigo); }
 .tile { padding: 1.5rem; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
 .tile p { color: var(--muted); font-size: 1rem; margin-top: .35rem; }
 .tile-search, .tile-excel { grid-column: span 2; }
-.tile-excel { display: flex; flex-direction: column; }
+.tile-excel { display: flex; flex-direction: column; container: excel / inline-size; }
 .tile-excel .sheet { flex: 1; margin-top: 0; }
 .tile-excel p { margin-bottom: 1rem; }
 .search-demo { margin-top: 1rem; }
@@ -170,10 +170,33 @@ h1 span { color: var(--indigo); }
 #people li:last-child { border-bottom: 0; }
 #people b { font-weight: 500; }
 #people span { color: var(--muted); font-size: .95rem; }
+/* ปกติแสดงชื่อบริษัท ถ้าค้นด้วยตัวเลขจะแสดงเบอร์แทน ให้เห็นว่าเจอเพราะอะไร */
+#people .ph { display: none; font-variant-numeric: tabular-nums; color: var(--green); }
+#people.by-phone .co { display: none; }
+#people.by-phone .ph { display: inline; }
 .none { position: relative; margin-top: -14rem !important; }
-.sheet { width: 100%; margin-top: 1rem; border-collapse: collapse; font-size: .9rem; }
-.sheet th, .sheet td { padding: .3rem .6rem; border: 1px solid #355748; text-align: left; font-weight: 400; }
-.sheet th { background: #153b2f; color: var(--green); font-weight: 600; }
+
+/* ตาราง Excel: เส้นบาง ๆ แค่แนวนอน หัวตารางสีเขียวแบบ Excel */
+.sheet { width: 100%; margin-top: 1rem; border-collapse: collapse; font-size: .8rem; border: 1px solid #2c4a3e; border-radius: 10px; overflow: hidden; }
+.sheet th, .sheet td { padding: .45rem .7rem; text-align: left; font-weight: 400; white-space: nowrap; border-bottom: 1px solid rgb(52 211 153 / .14); }
+.sheet tr:last-child td { border-bottom: 0; }
+.sheet th { background: #153b2f; color: var(--green); font-weight: 600; font-size: .74rem; letter-spacing: .02em; }
+.sheet td:first-child { color: var(--text); font-weight: 500; }
+.sheet td { color: #c3c8d6; font-variant-numeric: tabular-nums; }
+.sheet td.col-mail { color: var(--muted); }
+.sheet .sub { display: none; }
+/* ตารางค่อย ๆ ลดคอลัมน์ตามพื้นที่ด้านในกล่อง (ตัวเลข = ความกว้างที่ตารางต้องการจริง + เผื่อ 8px)
+   5 คอลัมน์ 566px > ซ่อนบริษัท 471px > อีเมลย้ายไปใต้ชื่อ 370px > ซ่อนตำแหน่ง 249px */
+@container excel (max-width: 573px) {
+  .sheet .col-co { display: none; }
+}
+@container excel (max-width: 478px) {
+  .sheet .col-mail { display: none; }
+  .sheet .sub { display: block; margin-top: .1rem; font-weight: 400; font-size: .7rem; color: var(--muted); }
+}
+@container excel (max-width: 377px) {
+  .sheet .col-title { display: none; }
+}
 
 /* ความเป็นส่วนตัว */
 .privacy { position: relative; overflow: hidden; color: #fff; background: linear-gradient(120deg, #4f46e5, #5b5fea, #4f46e5, #5b5fea); background-size: 300% 300%; animation: drift 16s ease-in-out infinite alternate; }
@@ -234,6 +257,7 @@ h1 span { color: var(--indigo); }
   .tile-search, .tile-excel { grid-column: auto; }
   .actions > * { flex: 1 1 100%; }
   .stores { grid-template-columns: 1fr 1fr; }
+  /* มือถือ: เหลือ 2 คอลัมน์ ชื่อ (อีเมลอยู่บรรทัดล่าง) กับเบอร์ */
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

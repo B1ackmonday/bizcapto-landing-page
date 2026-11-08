@@ -280,18 +280,25 @@ if (canHover) {
 const search = document.getElementById('q');
 const people = document.querySelectorAll('#people li');
 const noResult = document.getElementById('none');
-const AUTO_QUERIES = ['river', 'lena', 'may'];
+const AUTO_QUERIES = ['river', '0102', 'may'];
+const peopleList = document.getElementById('people');
+const digitsOf = (text) => text.replace(/\D/g, '');
 let autoRun = 0;
 let userTookOver = false;
 
+// ค้นแบบเดียวกับแอป: ข้อความตรงบางส่วน หรือเลข 3 ตัวขึ้นไปตรงกับเบอร์ (ไม่สนขีดหรือเว้นวรรค)
 function filterPeople() {
   const query = search.value.trim().toLowerCase();
+  const queryDigits = digitsOf(query);
+  const byPhone = queryDigits.length >= 3 && queryDigits.length === query.replace(/[\s+()-]/g, '').length;
   let shown = 0;
   people.forEach((person) => {
-    const match = person.dataset.find.includes(query);
+    const match = person.dataset.find.includes(query)
+      || (queryDigits.length >= 3 && digitsOf(person.dataset.phone).includes(queryDigits));
     person.hidden = !match;
     if (match) shown += 1;
   });
+  peopleList.classList.toggle('by-phone', byPhone);
   noResult.hidden = shown > 0;
 }
 
