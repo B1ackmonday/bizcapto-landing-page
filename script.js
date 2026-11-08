@@ -283,7 +283,6 @@ const noResult = document.getElementById('none');
 const AUTO_QUERIES = ['river', '0102', 'may'];
 const peopleList = document.getElementById('people');
 const digitsOf = (text) => text.replace(/\D/g, '');
-let autoRun = 0;
 let userTookOver = false;
 
 // ค้นแบบเดียวกับแอป: ข้อความตรงบางส่วน หรือเลข 3 ตัวขึ้นไปตรงกับเบอร์ (ไม่สนขีดหรือเว้นวรรค)
@@ -302,42 +301,207 @@ function filterPeople() {
   noResult.hidden = shown > 0;
 }
 
-async function autoSearch() {
-  autoRun += 1;
-  const run = autoRun;
-  let index = 0;
-  await wait(900);
-  while (run === autoRun) {
-    const word = AUTO_QUERIES[index % AUTO_QUERIES.length];
-    index += 1;
-    for (let i = 1; i <= word.length; i += 1) {
-      if (run !== autoRun) return;
-      search.value = word.slice(0, i);
-      filterPeople();
-      await wait(110);
-    }
-    await wait(1500);
-    for (let i = word.length - 1; i >= 0; i -= 1) {
-      if (run !== autoRun) return;
-      search.value = word.slice(0, i);
-      filterPeople();
-      await wait(45);
-    }
-    await wait(1100);
+// พิมพ์ตัวอย่าง 1 คำ แล้วลบ (1 รอบ) หยุดทันทีเมื่อ stop() เป็นจริง
+let queryIndex = 0;
+async function searchCycle(stop) {
+  const word = AUTO_QUERIES[queryIndex % AUTO_QUERIES.length];
+  queryIndex += 1;
+  for (let i = 1; i <= word.length; i += 1) {
+    if (stop()) return;
+    search.value = word.slice(0, i);
+    filterPeople();
+    await wait(110);
   }
-}
-
-function stopAutoSearch() {
-  autoRun += 1;
+  await wait(1500);
+  for (let i = word.length - 1; i >= 0; i -= 1) {
+    if (stop()) return;
+    search.value = word.slice(0, i);
+    filterPeople();
+    await wait(45);
+  }
+  await wait(900);
 }
 
 search.addEventListener('input', filterPeople);
+
+// ---------- แผ่น Excel ----------
+// เอียงแผ่น > ตั้งตรงแล้วซูมเข้าคอลัมน์ A > เลื่อนทีละคอลัมน์ถึง F > ซูมออกให้เห็นทั้งแผ่น > วนใหม่
+// ผู้ใช้ปัดหรือลากเมื่อไร ภาพหยุดเล่นเองแล้วให้ผู้ใช้ควบคุม
+const xl = document.getElementById('xl');
+const xlView = document.getElementById('xlView');
+const xlTilt = document.getElementById('xlTilt');
+const xlStage = document.getElementById('xlStage');
+const xlTable = xlStage.querySelector('table');
+const xlHl = document.getElementById('xlHl');
+const xlChip = document.getElementById('xlChip');
+const xlLetters = [...xlTable.querySelectorAll('.xl-letters th:not(.xl-corner)')];
+const xlHeads = [...xlTable.querySelectorAll('.xl-head th:not(.xl-num)')];
+const XL_FOCUS = 1;
+let xlTx = 0;
+let xlCol = 0;
+let xlUser = false;
+
+function xlSize() {
+  xlView.style.setProperty('--xl-h', `${Math.ceil(xlTable.offsetHeight * XL_FOCUS)}px`);
+}
+
+function xlPlace(scale, tx, ty, ms) {
+  xlStage.style.transitionDuration = `${ms}ms`;
+  xlStage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  if (scale === XL_FOCUS) xlTx = tx;
+}
+
+function xlClampTx(tx) {
+  const minTx = xlView.clientWidth - xlTable.offsetWidth * XL_FOCUS;
+  return Math.min(0, Math.max(Math.min(0, minTx), tx));
+}
+
+// เปลี่ยนป้ายชื่อคอลัมน์ตอนกล้องเลื่อนไปได้ครึ่งทาง ให้ป้ายตรงกับภาพ
+let xlChipTimer;
+function xlMark(i, ms = 0) {
+  xlCol = i;
+  clearTimeout(xlChipTimer);
+  xlLetters.forEach((th, n) => th.classList.toggle('on', n === i));
+  if (i < 0) {
+    xlHl.style.opacity = '0';
+    xl.classList.add('show-all');
+    return;
+  }
+  const head = xlHeads[i];
+  xlHl.style.left = `${head.offsetLeft}px`;
+  xlHl.style.width = `${head.offsetWidth}px`;
+  xlHl.style.opacity = '1';
+  const label = `${'ABCDEF'[i]} · ${head.textContent}`;
+  if (ms > 0) {
+    xlChipTimer = setTimeout(() => { xlChip.textContent = label; }, ms * 0.5);
+  } else {
+    xlChip.textContent = label;
+  }
+  xl.classList.remove('show-all');
+}
+
+function xlFocus(i, ms) {
+  const head = xlHeads[i];
+  const center = head.offsetLeft + head.offsetWidth / 2;
+  xlPlace(XL_FOCUS, xlClampTx(xlView.clientWidth / 2 - center * XL_FOCUS), 0, ms);
+  xlMark(i, ms);
+}
+
+function xlOverview(ms) {
+  const vw = xlView.clientWidth;
+  const vh = xlView.clientHeight;
+  const scale = Math.min(XL_FOCUS, (vw / xlTable.offsetWidth) * 0.92);
+  xlPlace(scale, (vw - xlTable.offsetWidth * scale) / 2, (vh - xlTable.offsetHeight * scale) / 2, ms);
+  xlMark(-1);
+}
+
+function xlInstant(fn) {
+  xlTilt.style.transition = 'none';
+  fn();
+  void xlTilt.offsetWidth;
+  xlTilt.style.transition = '';
+}
+
+async function excelCycle(stop) {
+  xlInstant(() => {
+    xlTilt.classList.add('tilted');
+    xlOverview(0);
+  });
+  await wait(700);
+  if (stop()) return;
+  xlTilt.classList.remove('tilted');
+  xlFocus(0, 1200);
+  await wait(2700);
+  for (let i = 1; i < xlHeads.length; i += 1) {
+    if (stop()) return;
+    xlFocus(i, 850);
+    await wait(2150);
+  }
+  if (stop()) return;
+  xlOverview(1100);
+  await wait(3300);
+  if (stop()) return;
+  xlTilt.classList.add('tilted');
+  await wait(1300);
+}
+
+// ลากหรือปัดเพื่อดูเอง
+let drag = null;
+xlView.addEventListener('pointerdown', (e) => {
+  xlUser = true;
+  xlInstant(() => xlTilt.classList.remove('tilted'));
+  if (xlCol < 0) xlFocus(0, 0);
+  drag = { x: e.clientX, tx: xlTx, id: e.pointerId };
+  xlView.setPointerCapture(e.pointerId);
+  xlView.classList.add('dragging');
+});
+xlView.addEventListener('pointermove', (e) => {
+  if (!drag || e.pointerId !== drag.id) return;
+  const tx = xlClampTx(drag.tx + (e.clientX - drag.x));
+  xlPlace(XL_FOCUS, tx, 0, 0);
+  const middle = xlView.clientWidth / 2 - tx;
+  let nearest = 0;
+  xlHeads.forEach((head, n) => {
+    const d = Math.abs(head.offsetLeft + head.offsetWidth / 2 - middle);
+    const best = Math.abs(xlHeads[nearest].offsetLeft + xlHeads[nearest].offsetWidth / 2 - middle);
+    if (d < best) nearest = n;
+  });
+  if (nearest !== xlCol) xlMark(nearest);
+});
+const endDrag = () => {
+  drag = null;
+  xlView.classList.remove('dragging');
+};
+xlView.addEventListener('pointerup', endDrag);
+xlView.addEventListener('pointercancel', endDrag);
+
+function xlReflow() {
+  xlSize();
+  if (xlCol < 0) xlOverview(0);
+  else xlFocus(xlCol, 0);
+}
+window.addEventListener('resize', xlReflow);
+document.fonts.ready.then(xlReflow);
+xlSize();
+if (reducedMotion) {
+  xlFocus(0, 0);
+} else {
+  xlInstant(() => {
+    xlTilt.classList.add('tilted');
+    xlOverview(0);
+  });
+}
+
+// ---------- ให้ช่องค้นหากับแผ่น Excel เล่นสลับกัน ไม่ขยับพร้อมกัน ----------
+const feature = { searchIn: false, excelIn: false, running: false };
+
+async function featureLoop() {
+  feature.running = true;
+  await wait(600);
+  for (;;) {
+    let played = false;
+    if (feature.searchIn && !userTookOver) {
+      played = true;
+      await searchCycle(() => userTookOver || !feature.searchIn);
+    }
+    if (feature.excelIn && !xlUser) {
+      played = true;
+      await excelCycle(() => xlUser || !feature.excelIn);
+    }
+    if (!played) break;
+  }
+  feature.running = false;
+}
+
+function syncFeatures() {
+  const wanted = (feature.searchIn && !userTookOver) || (feature.excelIn && !xlUser);
+  if (wanted && !feature.running) featureLoop();
+}
 
 if (!reducedMotion) {
   const takeOver = () => {
     if (userTookOver) return;
     userTookOver = true;
-    stopAutoSearch();
     search.value = '';
     filterPeople();
   };
@@ -345,11 +509,14 @@ if (!reducedMotion) {
   search.addEventListener('focus', takeOver);
 
   new IntersectionObserver(([entry]) => {
-    if (userTookOver) return;
-    if (entry.isIntersecting) {
-      autoSearch();
-    } else {
-      stopAutoSearch();
-    }
+    feature.searchIn = entry.isIntersecting;
+    syncFeatures();
   }, { threshold: 0.5 }).observe(search);
+
+  new IntersectionObserver(([entry]) => {
+    feature.excelIn = entry.isIntersecting;
+    // เลื่อนออกไปแล้วกลับมา ให้เริ่มเล่นใหม่แม้เคยปัดเอง
+    if (!entry.isIntersecting) xlUser = false;
+    syncFeatures();
+  }, { threshold: 0.5 }).observe(xlView);
 }

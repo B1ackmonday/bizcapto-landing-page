@@ -181,13 +181,33 @@
           <article class="tile tile-excel">
             <h3 data-i18n="feat.excel.title">Your data, in Excel</h3>
             <p data-i18n="feat.excel.text">Export every card to .xlsx and import it back. That is also how you move to a new phone.</p>
-            <table class="sheet" aria-hidden="true">
-              <tr><th data-i18n="demo.name">Name</th><th class="col-title" data-i18n="demo.jobtitle">Job title</th><th class="col-co" data-i18n="demo.company">Company</th><th data-i18n="demo.phone">Phone</th><th class="col-mail" data-i18n="demo.email">Email</th></tr>
-              <tr><td>Maya Collins<span class="sub">maya@example.com</span></td><td class="col-title">Product Designer</td><td class="col-co">Harbor Lane</td><td>+1 555 0100</td><td class="col-mail">maya@example.com</td></tr>
-              <tr><td>Daniel Brooks<span class="sub">daniel@example.com</span></td><td class="col-title">Head Baker</td><td class="col-co">River Bakery</td><td>+1 555 0101</td><td class="col-mail">daniel@example.com</td></tr>
-              <tr><td>Lena Fischer<span class="sub">lena@example.com</span></td><td class="col-title">Operations Lead</td><td class="col-co">Blue Door</td><td>+1 555 0102</td><td class="col-mail">lena@example.com</td></tr>
-              <tr><td>Omar Haddad<span class="sub">omar@example.com</span></td><td class="col-title">Clinic Manager</td><td class="col-co">Northpoint</td><td>+1 555 0103</td><td class="col-mail">omar@example.com</td></tr>
-            </table>
+            <!-- แผ่น Excel ตัวอย่าง: หัวคอลัมน์ตรงกับไฟล์ที่แอปส่งออกจริง ภาพเคลื่อนไหวอยู่ใน script.js หัวข้อ "แผ่น Excel" -->
+            <div class="xl" id="xl" role="img" aria-label="Sample Excel export with the columns Name, Nickname, Job Title, Company, Phone and Email" data-i18n-aria="feat.excel.alt">
+              <div class="xl-bar" aria-hidden="true">
+                <svg viewBox="0 0 16 16"><rect x="1.5" y="1.5" width="13" height="13" rx="2"/><path d="M1.5 6h13M1.5 10.5h13M6 6v8.5M10.5 6v8.5"/></svg>
+                <span>contacts.xlsx</span>
+              </div>
+              <div class="xl-view" id="xlView" aria-hidden="true">
+                <div class="xl-tilt" id="xlTilt">
+                  <div class="xl-stage" id="xlStage">
+                    <table class="xl-grid">
+                  <tr class="xl-letters"><th class="xl-corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                  <tr class="xl-head"><th class="xl-num">1</th><th>Name</th><th>Nickname</th><th>Job Title</th><th>Company</th><th>Phone</th><th>Email</th></tr>
+                  <tr><th class="xl-num">2</th><td>Maya Collins</td><td>May</td><td>Product Designer</td><td>Harbor Lane Studio</td><td>+1 555 0100</td><td>maya@example.com</td></tr>
+                  <tr><th class="xl-num">3</th><td>Daniel Brooks</td><td>Dan</td><td>Head Baker</td><td>River Bakery</td><td>+1 555 0101</td><td>daniel@example.com</td></tr>
+                  <tr><th class="xl-num">4</th><td>Lena Fischer</td><td>Len</td><td>Operations Lead</td><td>Blue Door Logistics</td><td>+1 555 0102</td><td>lena@example.com</td></tr>
+                  <tr><th class="xl-num">5</th><td>Omar Haddad</td><td>Omi</td><td>Clinic Manager</td><td>Northpoint Clinic</td><td>+1 555 0103</td><td>omar@example.com</td></tr>
+                    </table>
+                    <span class="xl-hl" id="xlHl"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="xl-foot" aria-hidden="true">
+                <span class="xl-chip" id="xlChip">A · Name</span>
+                <span class="xl-all" id="xlAll" data-i18n="feat.excel.all">6 columns, every card</span>
+                <span class="xl-hint" data-i18n="feat.excel.hint">Swipe to look around</span>
+              </div>
+            </div>
           </article>
 
           <article class="tile">
