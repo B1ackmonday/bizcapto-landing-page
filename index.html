@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BizCapto | Business card scanner that keeps your contacts on your phone</title>
   <meta name="description" content="BizCapto scans business cards into searchable contacts. It works offline, needs no account, and keeps your cards on your phone.">
+  <!-- ภาพและข้อความตอนแชร์ลิงก์ใน LINE, Facebook, X -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BizCapto">
+  <meta property="og:title" content="BizCapto | Business card scanner that keeps your contacts on your phone">
+  <meta property="og:description" content="BizCapto scans business cards into searchable contacts. It works offline, needs no account, and keeps your cards on your phone.">
+  <meta property="og:url" content="https://b1ackmonday.github.io/bizcapto-landing-page/">
+  <meta property="og:image" content="https://b1ackmonday.github.io/bizcapto-landing-page/img/og-image.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="500">
+  <meta property="og:image:alt" content="BizCapto logo with the line: Scan business cards. Keep them private.">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0f1117">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f1117'/%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round' transform='translate(11 11) scale(.78)'%3E%3Cpath d='M77 31A33 33 0 1 0 77 69' stroke='%235b5fea' stroke-width='8'/%3E%3Cpath d='M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75' stroke='%23818cf8' stroke-width='5.5'/%3E%3Cpath d='M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38' stroke='%23eceef5' stroke-width='6.5'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,13 +77,13 @@
       <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow" data-i18n="hero.eyebrow">Business card scanner for Android and iOS</p>
+          <p class="eyebrow" data-i18n="hero.eyebrow">Business card scanner for Android</p>
           <h1 data-i18n="hero.title">Scan the card.<br>Keep the contact.<br><span>Stored on your phone.</span></h1>
           <p class="lead" data-i18n="hero.lead">BizCapto turns a paper business card into a contact you can search, call and email. It works offline, with no account and no cloud.</p>
           <div class="actions">
             <div class="stores">
               <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>Google Play</strong></span>
-              <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>App Store</strong></span>
+              <span class="soon soon-later"><small data-i18n="cta.planned">Planned</small><strong>App Store</strong></span>
             </div>
             <a class="btn btn-line" href="#how" data-i18n="hero.secondary">See how it works</a>
           </div>
@@ -153,6 +164,36 @@
             <p data-i18n="how.3.text">Fix anything that looks off before you save. The original scanned text stays visible beside the form.</p>
           </li>
         </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="screens" class="section screens">
+      <div class="wrap">
+        <h2 data-i18n="screens.title">A look inside the app</h2>
+        <p class="lead" data-i18n="screens.lead">Real screens from the app. Every contact shown is a made-up sample.</p>
+        <div class="shots">
+          <figure class="shot">
+            <img src="img/screen-cards.webp" width="857" height="1785" loading="lazy" decoding="async" alt="The saved cards list with search, a Starred filter and sorting" data-i18n-alt="screens.1.alt">
+            <figcaption>
+              <h3 data-i18n="screens.1.title">Every card in one place</h3>
+              <p data-i18n="screens.1.text">Search, star and sort, then call or email in one tap.</p>
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/screen-review.webp" width="857" height="1785" loading="lazy" decoding="async" alt="The review screen with the contact fields and the scanned text below" data-i18n-alt="screens.2.alt">
+            <figcaption>
+              <h3 data-i18n="screens.2.title">Check before you save</h3>
+              <p data-i18n="screens.2.text">Fix any field, or tap a line of scanned text to fill it in.</p>
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/screen-privacy.webp" width="857" height="1785" loading="lazy" decoding="async" alt="Settings with Export and Import, and a note that cards are saved only on this phone" data-i18n-alt="screens.3.alt">
+            <figcaption>
+              <h3 data-i18n="screens.3.title">Stays on your phone</h3>
+              <p data-i18n="screens.3.text">Export to Excel when you want a copy. No account and no cloud.</p>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -293,7 +334,7 @@
           </details>
           <details>
             <summary data-i18n="faq.5.q">Which languages does the app use?</summary>
-            <p data-i18n="faq.5.a">The app screens are in English for now, and more languages are planned.</p>
+            <p data-i18n="faq.5.a">The app follows your phone's language. English and Thai are available, and more languages are planned.</p>
           </details>
           <details>
             <summary data-i18n="faq.6.q">What happens if I change phones?</summary>
@@ -315,7 +356,7 @@
         <h2 data-i18n="close.title">Your next stack of cards deserves better than a desk drawer.</h2>
         <div class="stores">
               <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>Google Play</strong></span>
-              <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>App Store</strong></span>
+              <span class="soon soon-later"><small data-i18n="cta.planned">Planned</small><strong>App Store</strong></span>
             </div>
       </div>
     </section>
