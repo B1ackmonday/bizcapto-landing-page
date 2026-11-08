@@ -7,12 +7,12 @@ const wait = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); });
 
 // ข้อมูลสมมติทั้งหมด ใช้ในตัวสาธิตและสายพานนามบัตร
 const SAMPLE_CARDS = [
-  { name: 'Maya Chen', nickname: 'Mai', title: 'Product Designer', company: 'Harbor Lane Studio', phone: '+66 2 000 0000', email: 'maya@example.com', look: 'paper' },
-  { name: 'Anan Sukjai', nickname: 'Ton', title: 'Head Baker', company: 'River Bakery', phone: '+66 2 000 0001', email: 'anan@example.com', look: 'indigo' },
-  { name: 'Lena Park', nickname: 'Lee', title: 'Operations Lead', company: 'Blue Door Logistics', phone: '+66 2 000 0002', email: 'lena@example.com', look: 'night' },
-  { name: 'Niran Wong', nickname: 'Nick', title: 'Clinic Manager', company: 'Bee Clinic', phone: '+66 2 000 0003', email: 'niran@example.com', look: 'paper' },
-  { name: 'Sara Lim', nickname: 'Sa', title: 'Account Director', company: 'Tall Tree Media', phone: '+66 2 000 0004', email: 'sara@example.com', look: 'indigo' },
-  { name: 'Krit Dee', nickname: 'Kit', title: 'Sales Engineer', company: 'Field Note Systems', phone: '+66 2 000 0005', email: 'krit@example.com', look: 'night' },
+  { name: 'Maya Collins', nickname: 'May', title: 'Product Designer', company: 'Harbor Lane Studio', phone: '+1 555 0100', email: 'maya@example.com', look: 'paper' },
+  { name: 'Daniel Brooks', nickname: 'Dan', title: 'Head Baker', company: 'River Bakery', phone: '+1 555 0101', email: 'daniel@example.com', look: 'indigo' },
+  { name: 'Lena Fischer', nickname: 'Len', title: 'Operations Lead', company: 'Blue Door Logistics', phone: '+1 555 0102', email: 'lena@example.com', look: 'night' },
+  { name: 'Omar Haddad', nickname: 'Omi', title: 'Clinic Manager', company: 'Northpoint Clinic', phone: '+1 555 0103', email: 'omar@example.com', look: 'paper' },
+  { name: 'Sofia Martins', nickname: 'Sofi', title: 'Account Director', company: 'Tall Tree Media', phone: '+1 555 0104', email: 'sofia@example.com', look: 'indigo' },
+  { name: 'Lucas Moreau', nickname: 'Luc', title: 'Sales Engineer', company: 'Field Note Systems', phone: '+1 555 0105', email: 'lucas@example.com', look: 'night' },
 ];
 
 // ---------- สลับภาษา ----------
@@ -48,11 +48,6 @@ langButtons.forEach((button) => {
     if (lang === document.documentElement.lang) return;
     markLanguage(lang);
     try { localStorage.setItem(LANG_KEY, lang); } catch { /* เบราว์เซอร์ปิดการเก็บค่า */ }
-    const url = new URL(location.href);
-    if (url.searchParams.has('lang')) {
-      url.searchParams.set('lang', lang);
-      history.replaceState(null, '', url);
-    }
     if (reducedMotion) {
       setLanguage(lang);
       return;
@@ -197,17 +192,13 @@ if (canHover && !reducedMotion) {
 
 // ---------- สายพานนามบัตร ----------
 const paperCard = (c) => `<div class="bc bc-${c.look}"><b>${c.name}</b><span>${c.title}</span><span>${c.company}</span><span>${c.phone}</span></div>`;
-const dataCard = (c) => `<div class="bc bc-data"><b>${c.name}</b><span>${c.title}</span><span>${c.company}</span><span>${c.phone}</span></div>`;
 const beltCopies = 3;
 
-document.querySelectorAll('[data-belt]').forEach((track) => {
-  const render = track.dataset.belt === 'data' ? dataCard : paperCard;
-  track.innerHTML = SAMPLE_CARDS.map(render).join('').repeat(beltCopies);
-});
+document.getElementById('beltTrack').innerHTML = SAMPLE_CARDS.map(paperCard).join('').repeat(beltCopies);
 
 // ---------- แสดงเนื้อหาตอนเลื่อนถึง ----------
 const revealGroups = [
-  ['.section h2, .closing h2, .privacy .lead, .fine'],
+  ['.section h2, .closing h2, .privacy .lead, .privacy .text-link, .fine'],
   ['.steps li', 0.14],
   ['.tile', 0.07],
   ['.checks li', 0.1],
@@ -254,7 +245,16 @@ function onScroll() {
 
   const box = privacy.getBoundingClientRect();
   privacy.style.setProperty('--p', clamp01((view - box.top) / (view * 0.75)).toFixed(3));
+
+  toTop.classList.toggle('show', window.scrollY > view * 0.8);
 }
+
+// ปุ่มกลับขึ้นบนสุด แล้วย้ายโฟกัสไปต้นหน้า ให้คนใช้คีย์บอร์ดไม่หลงตำแหน่ง
+const toTop = document.getElementById('toTop');
+toTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+  document.querySelector('.brand').focus({ preventScroll: true });
+});
 
 function queueScroll() {
   if (scrollQueued) return;
@@ -280,7 +280,7 @@ if (canHover) {
 const search = document.getElementById('q');
 const people = document.querySelectorAll('#people li');
 const noResult = document.getElementById('none');
-const AUTO_QUERIES = ['river', 'lena', 'mai'];
+const AUTO_QUERIES = ['river', 'lena', 'may'];
 let autoRun = 0;
 let userTookOver = false;
 

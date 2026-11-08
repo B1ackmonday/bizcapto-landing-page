@@ -12,14 +12,19 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Poppins:wght@500;600&family=Prompt:wght@500;600&display=swap">
   <link rel="stylesheet" href="styles.css">
   <script>
-    // เลือกภาษาก่อนหน้าเว็บแสดง: ลิงก์ ?lang=th > ค่าที่เคยเลือก > ภาษาของเครื่อง
+    // ภาษาไทยเปิดให้เฉพาะเครื่องที่มีภาษาไทยในการตั้งค่าภาษาเท่านั้น
+    // คนอื่นเห็นภาษาอังกฤษอย่างเดียว และไม่เห็นปุ่มสลับภาษา
+    // ลำดับการเลือก: ค่าที่เคยกดเลือก > ภาษาแรกของเครื่อง
     (function () {
-      var fromUrl = new URLSearchParams(location.search).get('lang');
       var saved = null;
       try { saved = localStorage.getItem('bizcapto-lang'); } catch (e) { /* เบราว์เซอร์ปิดการเก็บค่า */ }
-      var device = (navigator.language || '').toLowerCase().indexOf('th') === 0 ? 'th' : 'en';
-      var lang = fromUrl === 'th' || fromUrl === 'en' ? fromUrl : saved || device;
+      var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      var isThai = function (l) { return String(l).toLowerCase().indexOf('th') === 0; };
+      var thaiOk = Array.prototype.some.call(langs, isThai);
+      var lang = saved === 'th' || saved === 'en' ? saved : (isThai(langs[0]) ? 'th' : 'en');
+      if (!thaiOk) lang = 'en';
       document.documentElement.lang = lang;
+      if (thaiOk) document.documentElement.classList.add('thai-ok');
       document.documentElement.classList.add('js');
     })();
   </script>
@@ -74,7 +79,6 @@
         </div>
 
         <figure class="demo">
-          <div class="frame-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
           <div class="pills" aria-hidden="true">
             <span class="pill pill-a" data-depth="26" data-i18n="pill.offline">Works offline</span>
             <span class="pill pill-b" data-depth="-20" data-i18n="pill.account">No account</span>
@@ -88,10 +92,10 @@
                 <p class="cam-hint" data-i18n="demo.hint">Fit the card inside the frame</p>
                 <div class="cam-target">
                   <div class="bizcard" id="bizcard">
-                    <span class="cl cl-name" data-card="headline">Maya Chen (Mai)</span>
+                    <span class="cl cl-name" data-card="headline">Maya Collins (May)</span>
                     <span class="cl cl-title" data-card="title">Product Designer</span>
                     <span class="cl cl-co" data-card="company">Harbor Lane Studio</span>
-                    <span class="cl cl-tel" data-card="phone">+66 2 000 0000</span>
+                    <span class="cl cl-tel" data-card="phone">+1 555 0100</span>
                     <span class="cl cl-mail" data-card="email">maya@example.com</span>
                   </div>
                   <span class="scanline"></span>
@@ -102,11 +106,11 @@
               <div class="review">
                 <p class="review-title" data-i18n="demo.review">Review card</p>
                 <dl>
-                  <div style="--i:0"><dt data-i18n="demo.name">Name</dt><dd data-field="name">Maya Chen</dd></div>
-                  <div style="--i:1"><dt data-i18n="demo.nick">Nickname</dt><dd data-field="nickname">Mai</dd></div>
+                  <div style="--i:0"><dt data-i18n="demo.name">Name</dt><dd data-field="name">Maya Collins</dd></div>
+                  <div style="--i:1"><dt data-i18n="demo.nick">Nickname</dt><dd data-field="nickname">May</dd></div>
                   <div style="--i:2"><dt data-i18n="demo.jobtitle">Job title</dt><dd data-field="title">Product Designer</dd></div>
                   <div style="--i:3"><dt data-i18n="demo.company">Company</dt><dd data-field="company">Harbor Lane Studio</dd></div>
-                  <div style="--i:4"><dt data-i18n="demo.phone">Phone</dt><dd data-field="phone">+66 2 000 0000</dd></div>
+                  <div style="--i:4"><dt data-i18n="demo.phone">Phone</dt><dd data-field="phone">+1 555 0100</dd></div>
                   <div style="--i:5"><dt data-i18n="demo.email">Email</dt><dd data-field="email">maya@example.com</dd></div>
                 </dl>
                 <span class="save" data-i18n="demo.save">Save</span>
@@ -124,9 +128,7 @@
     </section>
 
     <div class="belt" id="belt" aria-hidden="true">
-      <div class="belt-track" data-belt="paper"></div>
-      <div class="belt-clip"><div class="belt-track" data-belt="data"></div></div>
-      <div class="belt-frame"><i></i><i></i><i></i><i></i><span></span></div>
+      <div class="belt-track" id="beltTrack"></div>
     </div>
 
     <section id="how" class="section how">
@@ -166,10 +168,10 @@
               <label class="sr-only" for="q" data-i18n="feat.search.label">Search sample cards</label>
               <input id="q" type="search" autocomplete="off" placeholder="Search cards" data-i18n-placeholder="feat.search.placeholder">
               <ul id="people">
-                <li data-find="maya chen mai harbor lane studio"><b>Maya Chen</b><span>Harbor Lane Studio</span></li>
-                <li data-find="anan sukjai ton river bakery"><b>Anan Sukjai</b><span>River Bakery</span></li>
-                <li data-find="lena park blue door logistics"><b>Lena Park</b><span>Blue Door Logistics</span></li>
-                <li data-find="niran wong bee clinic"><b>Niran Wong</b><span>Bee Clinic</span></li>
+                <li data-find="maya collins may harbor lane studio"><b>Maya Collins</b><span>Harbor Lane Studio</span></li>
+                <li data-find="daniel brooks dan river bakery"><b>Daniel Brooks</b><span>River Bakery</span></li>
+                <li data-find="lena fischer len blue door logistics"><b>Lena Fischer</b><span>Blue Door Logistics</span></li>
+                <li data-find="omar haddad omi northpoint clinic"><b>Omar Haddad</b><span>Northpoint Clinic</span></li>
               </ul>
               <p class="none" id="none" hidden data-i18n="feat.search.none">No sample card matches.</p>
             </div>
@@ -180,10 +182,10 @@
             <p data-i18n="feat.excel.text">Export every card to .xlsx and import it back. That is also how you move to a new phone.</p>
             <table class="sheet" aria-hidden="true">
               <tr><th data-i18n="demo.name">Name</th><th data-i18n="demo.company">Company</th></tr>
-              <tr><td>Maya Chen</td><td>Harbor Lane</td></tr>
-              <tr><td>Anan Sukjai</td><td>River Bakery</td></tr>
-              <tr><td>Lena Park</td><td>Blue Door</td></tr>
-              <tr><td>Niran Wong</td><td>Bee Clinic</td></tr>
+              <tr><td>Maya Collins</td><td>Harbor Lane</td></tr>
+              <tr><td>Daniel Brooks</td><td>River Bakery</td></tr>
+              <tr><td>Lena Fischer</td><td>Blue Door</td></tr>
+              <tr><td>Omar Haddad</td><td>Northpoint</td></tr>
             </table>
           </article>
 
@@ -217,12 +219,13 @@
         <div>
           <h2 data-i18n="priv.title">Business cards are other people's personal data. We treat them that way.</h2>
           <p class="lead" data-i18n="priv.lead">The Android app has no internet permission, so your contacts have no route off the phone unless you export or share them yourself.</p>
+          <a class="text-link" href="privacy.html" data-i18n="priv.more">Read the full privacy policy</a>
         </div>
         <ul class="checks">
           <li data-i18n="priv.1">No account or sign-in</li>
           <li data-i18n="priv.2">No cloud sync and no analytics</li>
           <li data-i18n="priv.3">Camera is the only permission it asks for</li>
-          <li data-i18n="priv.4">Photos taken in the app are deleted once the text is read</li>
+          <li data-i18n="priv.4">Photos taken in the app are deleted when you save or leave the review screen</li>
           <li data-i18n="priv.5">Left out of Android's automatic cloud backup</li>
         </ul>
       </div>
@@ -252,8 +255,8 @@
         <h2 data-i18n="faq.title">Good questions</h2>
         <div class="qa">
           <details open>
-            <summary data-i18n="faq.1.q">Can it read Thai business cards?</summary>
-            <p data-i18n="faq.1.a">English reads well. Thai support is included but still improving, so some Thai words may come out wrong. That is why you review every card before saving.</p>
+            <summary data-i18n="faq.1.q">Which languages can it read?</summary>
+            <p data-i18n="faq.1.a">English reads well. Thai is supported too and still improving, so some words may come out wrong. That is why you review every card before saving.</p>
           </details>
           <details>
             <summary data-i18n="faq.2.q">Do I need the internet?</summary>
@@ -268,8 +271,8 @@
             <p data-i18n="faq.4.a">It is planned. Android comes first and the iPhone version is still being built.</p>
           </details>
           <details>
-            <summary data-i18n="faq.5.q">Is the app in Thai?</summary>
-            <p data-i18n="faq.5.a">The app screens are in English for now. A Thai version of the screens is planned.</p>
+            <summary data-i18n="faq.5.q">Which languages does the app use?</summary>
+            <p data-i18n="faq.5.a">The app screens are in English for now, and more languages are planned.</p>
           </details>
           <details>
             <summary data-i18n="faq.6.q">What happens if I change phones?</summary>
@@ -300,9 +303,17 @@
   <footer class="site-footer">
     <div class="wrap foot">
       <span>© 2026 BizCapto · RMshowdown</span>
+      <span class="foot-links">
+        <a href="privacy.html" data-i18n="foot.privacy">Privacy policy</a>
+        <span><span data-i18n="foot.contact">Contact</span> <a href="mailto:rmshowdown.dev@gmail.com">rmshowdown.dev@gmail.com</a></span>
+      </span>
       <span data-i18n="foot.note">This website uses no cookies or analytics.</span>
     </div>
   </footer>
+
+  <button type="button" class="to-top" id="toTop" aria-label="Back to top" data-i18n-aria="top.label">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 
   <script src="th.js"></script>
   <script src="script.js"></script>
