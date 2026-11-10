@@ -96,7 +96,7 @@
       <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow" data-i18n="hero.eyebrow">Business card scanner for Android</p>
+          <p class="eyebrow" data-i18n="hero.eyebrow"><span class="hl">Offline</span> business card scanner</p>
           <h1 data-i18n="hero.title">Scan the card.<br>Keep the contact.<br><span>Stored on your phone.</span></h1>
           <p class="lead" data-i18n="hero.lead">BizCapto turns a paper business card into a contact you can search, call and email. It works offline, with no account and no cloud.</p>
           <div class="actions">
@@ -109,11 +109,6 @@
         </div>
 
         <figure class="demo">
-          <div class="pills" aria-hidden="true">
-            <span class="pill pill-a" data-depth="26" data-i18n="pill.offline">Works offline</span>
-            <span class="pill pill-b" data-depth="-20" data-i18n="pill.account">No account</span>
-            <span class="pill pill-c" data-depth="34" data-i18n="pill.excel">Excel export</span>
-          </div>
           <div class="bob">
           <div class="phone" id="phone" data-step="0" role="img" aria-label="Illustration: a phone scans a sample business card and fills in the contact fields" data-i18n-aria="demo.alt">
             <div class="screen" aria-hidden="true">
@@ -193,17 +188,17 @@
         <p class="lead" data-i18n="screens.lead">Real screens from the app. Every contact shown is a made-up sample.</p>
         <div class="shots">
           <figure class="shot">
-            <img src="img/screen-cards.webp" width="857" height="1785" loading="lazy" decoding="async" alt="The saved cards list with search, a Starred filter and sorting" data-i18n-alt="screens.1.alt">
+            <img src="img/screen-cards.webp" width="857" height="1785" loading="lazy" decoding="async" alt="The saved cards list with search, Starred and Group filters, and sorting" data-i18n-alt="screens.1.alt">
             <figcaption>
               <h3 data-i18n="screens.1.title">Every card in one place</h3>
-              <p data-i18n="screens.1.text">Search, star and sort, then call or email in one tap.</p>
+              <p data-i18n="screens.1.text">Search, star, group and sort, then call or email right away.</p>
             </figcaption>
           </figure>
           <figure class="shot">
-            <img src="img/screen-review.webp" width="857" height="1785" loading="lazy" decoding="async" alt="The review screen with the contact fields and the scanned text below" data-i18n-alt="screens.2.alt">
+            <img src="img/screen-review.webp" width="857" height="1785" loading="lazy" decoding="async" alt="The Check details screen with the contact fields and group suggestions" data-i18n-alt="screens.2.alt">
             <figcaption>
               <h3 data-i18n="screens.2.title">Check before you save</h3>
-              <p data-i18n="screens.2.text">Fix any field, or tap a line of scanned text to fill it in.</p>
+              <p data-i18n="screens.2.text">Fix any field, tap a line of scanned text to fill it in, and pick a group.</p>
             </figcaption>
           </figure>
           <figure class="shot">
@@ -223,7 +218,7 @@
         <div class="bento">
           <article class="tile tile-search">
             <h3 data-i18n="feat.search.title">Find anyone in seconds</h3>
-            <p data-i18n="feat.search.text">Search by name, nickname, job title, company, phone number or email. Sort by recent, A to Z or date added. Try it:</p>
+            <p data-i18n="feat.search.text">Search by name, nickname, job title, company, phone number or email. Sort by most recent, A to Z or oldest first. Try it:</p>
             <div class="search-demo">
               <label class="sr-only" for="q" data-i18n="feat.search.label">Search sample cards</label>
               <input id="q" type="search" autocomplete="off" placeholder="Search cards" data-i18n-placeholder="feat.search.placeholder">
@@ -272,7 +267,7 @@
 
           <article class="tile">
             <svg class="ico ico-call" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 6-3 2a13 13 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A18 18 0 0 1 4 5a2 2 0 0 1 2-2Z"/></svg>
-            <h3 data-i18n="feat.act.title">Reach out in one tap</h3>
+            <h3 data-i18n="feat.act.title">Call or email right away</h3>
             <p data-i18n="feat.act.text">Call, email or look someone up on LinkedIn straight from their card.</p>
           </article>
           <article class="tile">
@@ -288,7 +283,7 @@
           <article class="tile">
             <svg class="ico ico-star" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2 1.2-6.8-5-4.9 6.9-1Z"/></svg>
             <h3 data-i18n="feat.star.title">Stars, groups and dark mode</h3>
-            <p data-i18n="feat.star.text">Star the people who matter and sort cards into groups like clients or a trade show, then filter. Light, dark or follow your system.</p>
+            <p data-i18n="feat.star.text">Star the people who matter and sort cards into groups, like clients or suppliers. View one group at a time. Light, dark or follow your system.</p>
           </article>
         </div>
       </div>
@@ -306,7 +301,7 @@
           <li data-i18n="priv.1">No account or sign-in</li>
           <li data-i18n="priv.2">No cloud sync and no analytics</li>
           <li data-i18n="priv.3">Camera is the only permission it asks for</li>
-          <li data-i18n="priv.4">Photos taken in the app are deleted when you save or leave the review screen</li>
+          <li data-i18n="priv.4">Photos taken in the app are deleted when you save or leave the Check details screen</li>
           <li data-i18n="priv.5">Left out of Android's automatic cloud backup</li>
         </ul>
       </div>
@@ -323,7 +318,7 @@
           </article>
           <article class="plan plan-main">
             <h3 data-i18n="price.paid.title">Unlock for good</h3>
-            <p class="amount" data-i18n="price.paid.amount">Revealed at launch</p>
+            <p class="amount" data-i18n="price.paid.amount">Price coming soon</p>
             <p data-i18n="price.paid.text">One in-app purchase for unlimited cards, with nothing to renew.</p>
           </article>
         </div>

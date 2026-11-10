@@ -67,6 +67,7 @@ html:not(.thai-ok) .lang { display: none; }
 .hero { position: relative; overflow: hidden; }
 .hero-grid { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 3rem; padding-block: clamp(2.5rem, 6vw, 5rem); }
 .eyebrow { color: var(--indigo); font-weight: 600; }
+.eyebrow .hl { color: var(--green); }
 h1 { font-size: clamp(2.3rem, 4.7vw, 3.55rem); line-height: 1.16; letter-spacing: -.02em; margin: .8rem 0 1.3rem; }
 :lang(th) h1 { line-height: 1.38; letter-spacing: 0; font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 h1 span { color: var(--indigo); }
