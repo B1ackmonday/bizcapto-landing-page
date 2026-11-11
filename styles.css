@@ -80,11 +80,12 @@ h1 span { color: var(--indigo); }
 .stores { display: grid; grid-template-columns: repeat(2, 9.5rem); gap: .6rem; }
 .soon {
   display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 48px; padding: .3rem .75rem;
-  border-radius: 12px; line-height: 1.25; color: #fff; text-align: center; background: var(--indigo-strong);
+  border-radius: 12px; line-height: 1.25; color: #fff; text-align: center; background: var(--indigo-ink);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / .14); transition: background-color .2s ease;
 }
-.soon:hover { background: #6466ee; }
-.soon small { font-size: .66rem; font-weight: 500; color: #d7dbff; }
+/* ตัวเล็กบนป้ายต้องผ่าน 4.5:1: #e0e3ff บน indigo-ink = 5.0:1, ตอนชี้ (#4345c9) = 5.7:1 */
+.soon:hover { background: #4345c9; }
+.soon small { font-size: .66rem; font-weight: 500; color: #e0e3ff; }
 :lang(en) .soon small { text-transform: uppercase; letter-spacing: .08em; }
 .soon strong { font: 600 .95rem var(--head); white-space: nowrap; }
 
@@ -199,7 +200,10 @@ h1 span { color: var(--indigo); }
   .shots { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(74%, 300px); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; }
   .shot { scroll-snap-align: start; }
 }
-.soon-later { opacity: .72; }
+/* ป้ายที่ยังไม่มีกำหนด: สีทึบเข้มกว่าแทนการลดความทึบ ตัวอักษรจึงยังอ่านชัด (#c7cbf5 = 7.0:1) */
+.soon-later { background: #30347a; }
+.soon-later:hover { background: #373b88; }
+.soon-later small { color: #c7cbf5; }
 .pricing { padding-bottom: 2rem; }
 .plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2.5rem; max-width: 860px; }
 .plan { padding: 1.75rem; border-radius: 20px; background: #fff; border: 1px solid var(--light-line); }
@@ -343,6 +347,8 @@ h1 span { background: linear-gradient(90deg, var(--indigo), #c4c9ff, var(--amber
 html:not(.js) .belt { display: none; }
 .belt-track { position: absolute; top: 40px; left: 0; display: flex; gap: 20px; width: max-content; animation: belt 54s linear infinite; }
 @keyframes belt { to { transform: translateX(calc(-100% / 3 - 20px / 3)); } }
+/* ปุ่มหยุดของตัวสาธิตหยุดสายพานด้วย (WCAG 2.2.2) */
+.belt.paused .belt-track { animation-play-state: paused; }
 .bc { flex: none; display: grid; align-content: center; width: 240px; height: 136px; padding: 0 1.1rem; border-radius: 12px; font-family: var(--head); font-size: .74rem; line-height: 1.55; }
 .bc b { font-size: 1rem; font-weight: 600; }
 .bc-paper { background: #fbfaf6; color: #1b2233; }
@@ -429,6 +435,8 @@ html:not(.js) .belt { display: none; }
   .pill { font-size: .76rem; padding: .2rem .65rem; }
 }
 @media (prefers-reduced-motion: reduce) {
+  /* ลดการเคลื่อนไหว: หยุดแอนิเมชันทุกตัว รวมถึงตัวที่วนไม่รู้จบ */
+  *, *::before, *::after { animation: none !important; }
   .aurora i, .hero-copy > *, .demo, h1 span, .bob, .pill, .belt-track,
   .ico, .ico *, .privacy, .plan-main::before, #people li, .phone, .phone *,   .to-top, .to-top.show, .to-top svg { transition: none; transform: none; }
   .js .reveal, .js .checks li::before { opacity: 1; scale: 1; transform: none; transition: none; }
