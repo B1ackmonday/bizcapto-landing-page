@@ -141,6 +141,7 @@ if (reducedMotion) {
   demoToggle.addEventListener('click', () => {
     demoPaused = !demoPaused;
     demoToggle.dataset.paused = String(demoPaused);
+    document.getElementById('belt').classList.toggle('paused', demoPaused);
     syncDemo();
   });
   new IntersectionObserver(([entry]) => {

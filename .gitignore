@@ -1,0 +1,11 @@
+# Impeccable (design tool) files: keep on this computer only.
+# GitHub Pages would publish them on the live website.
+PRODUCT.md
+DESIGN.md
+.impeccable/
+.agent/
+.agents/
+.claude/
+.cursor/
+.devin/
+.gemini/
