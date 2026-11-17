@@ -67,7 +67,7 @@ window.BIZCAPTO_TH = {
   'feat.excel.all': 'ครบ 6 คอลัมน์ ทุกใบ',
   'feat.excel.hint': 'ปัดเพื่อดูทั้งแผ่น',
   'feat.act.title': 'โทร อีเมล หรือทักแชตได้ทันที',
-  'feat.act.text': 'โทร ส่งอีเมล ทักแชต LINE หรือ WhatsApp หรือค้นหาชื่อใน LinkedIn ได้จากหน้านามบัตรเลย',
+  'feat.act.text': 'โทร ส่งอีเมล ทักแชต LINE หรือ WhatsApp ค้นหาชื่อใน LinkedIn หรือเปิดแผนที่หาบริษัท ได้จากหน้านามบัตรเลย',
   'feat.share.title': 'แชร์เข้า LINE และแอปอื่น',
   'feat.share.text': 'ส่งนามบัตรเป็นข้อความผ่านเมนูแชร์ของมือถือ',
   'feat.dup.title': 'ไม่บันทึกซ้ำ',
