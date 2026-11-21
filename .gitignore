@@ -9,3 +9,6 @@ DESIGN.md
 .cursor/
 .devin/
 .gemini/
+# AI agent rules: keep on this computer only
+AGENTS.md
+CLAUDE.md
