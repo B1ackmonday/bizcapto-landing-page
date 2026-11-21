@@ -7,7 +7,11 @@
   <meta name="description" content="Business card scanner for Android. Save cards as contacts, sort into groups, call, email, LINE or WhatsApp. Offline, exports to Excel. Reads English and Thai.">
   <meta name="google-site-verification" content="9E5ic6exMu49nEAiIoT-Es5bumaMfsEbR8roI2fSj4I">
   <link rel="canonical" href="https://rmshowdown.github.io/bizcapto/">
-  <!-- ข้อมูลให้ Google รู้ว่าหน้านี้คือแอปมือถือ (ยังไม่ใส่ราคา จนกว่าจะขายจริง) -->
+  <!-- หน้าเดียวกัน 2 ภาษา: บอก Google ว่าหน้าไหนภาษาอะไร (ใส่เหมือนกันทั้ง 2 หน้า) -->
+  <link rel="alternate" hreflang="en" href="https://rmshowdown.github.io/bizcapto/">
+  <link rel="alternate" hreflang="th" href="https://rmshowdown.github.io/bizcapto/th/">
+  <link rel="alternate" hreflang="x-default" href="https://rmshowdown.github.io/bizcapto/">
+  <!-- ข้อมูลให้ Google รู้ว่าหน้านี้คือแอปมือถือ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -17,43 +21,106 @@
     "description": "Business card scanner for Android. Save cards as contacts, sort into groups, call, email, LINE or WhatsApp. Offline, exports to Excel. Reads English and Thai.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Android 7.0 or newer",
-    "inLanguage": ["en", "th"],
+    "inLanguage": "en",
     "url": "https://rmshowdown.github.io/bizcapto/",
     "image": "https://rmshowdown.github.io/bizcapto/img/og-image.png",
+    "installUrl": "https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "10 cards included. Unlimited cards with a one-time in-app purchase." },
     "featureList": ["Business card scanner with on-device OCR", "Auto crop and auto capture", "Organize business cards into groups", "Search, star, call, email and share contacts", "Chat on LINE or WhatsApp from a card in one tap", "Find a company on the map from its card", "Export and import Excel (.xlsx)", "Works offline, no account"],
     "publisher": { "@type": "Organization", "name": "RM Showdown", "email": "rmshowdown.dev@gmail.com" }
+  }
+  </script>
+  <!-- คำถามที่พบบ่อยให้ Google อ่านได้: ข้อความต้องตรงกับหัวข้อ FAQ บนหน้า (หน้าไทยสร้างจาก th.js อัตโนมัติ) -->
+  <script type="application/ld+json" id="faq-ld">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which languages can it read?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It reads business cards (name cards) in English and Thai. English reads well. Thai is supported too and still improving, so some words may come out wrong. That is why you review every card before saving."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need the internet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Scanning, reading and saving all happen on the phone. Only the LinkedIn button opens your browser, and only when you tap it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I download it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On Google Play, for Android 7.0 or newer. Save 10 cards first, then unlock unlimited cards with one purchase if you like it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there an iPhone version?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It is planned. Android comes first and the iPhone version is still being built."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which languages does the app use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The app follows your phone's language. English and Thai are available, and more languages are planned."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if I change phones?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Export your cards to Excel on the old phone and import the file on the new one. There is no cloud copy, so keep that file safe."
+        }
+      }
+    ]
   }
   </script>
   <!-- ภาพและข้อความตอนแชร์ลิงก์ใน LINE, Facebook, X -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="BizCapto">
+  <meta property="og:locale" content="en_US">
   <meta property="og:title" content="BizCapto: Offline Business Card Scanner">
   <meta property="og:description" content="Business card scanner for Android. Save cards as contacts, sort into groups, call, email, LINE or WhatsApp. Offline, exports to Excel. Reads English and Thai.">
   <meta property="og:url" content="https://rmshowdown.github.io/bizcapto/">
   <meta property="og:image" content="https://rmshowdown.github.io/bizcapto/img/og-image.png">
   <meta property="og:image:width" content="1024">
   <meta property="og:image:height" content="500">
-  <meta property="og:image:alt" content="BizCapto logo with the line: Scan business cards. Keep them private.">
+  <meta property="og:image:alt" content="A phone scans a sample business card and BizCapto fills in the contact details.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0f1117">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f1117'/%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round' transform='translate(11 11) scale(.78)'%3E%3Cpath d='M77 31A33 33 0 1 0 77 69' stroke='%235b5fea' stroke-width='8'/%3E%3Cpath d='M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75' stroke='%23818cf8' stroke-width='5.5'/%3E%3Cpath d='M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38' stroke='%23eceef5' stroke-width='6.5'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
   <script>
-    // ภาษาไทยเปิดให้เฉพาะเครื่องที่มีภาษาไทยในการตั้งค่าภาษาเท่านั้น
-    // คนอื่นเห็นภาษาอังกฤษอย่างเดียว และไม่เห็นปุ่มสลับภาษา
-    // ลำดับการเลือก: ค่าที่เคยกดเลือก > ภาษาแรกของเครื่อง
+    // หน้าอังกฤษ (index.html) และหน้าไทย (th/index.html) เป็นคนละหน้า
+    // ปุ่ม EN / ไทย โชว์เฉพาะเครื่องที่ตั้งภาษาไทยไว้ (หรือตอนอยู่หน้าไทย)
+    // เปิดหน้าอังกฤษ: ถ้าเคยกดเลือกไทย หรือยังไม่เคยเลือกแต่ภาษาแรกของเครื่องเป็นไทย ให้ไปหน้าไทย
+    // (Google อ่านเว็บเป็นภาษาอังกฤษ จึงไม่ถูกพาไป และรู้จักหน้าไทยจาก hreflang ด้านบน)
     (function () {
+      var root = document.documentElement;
       var saved = null;
       try { saved = localStorage.getItem('bizcapto-lang'); } catch (e) { /* เบราว์เซอร์ปิดการเก็บค่า */ }
       var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
       var isThai = function (l) { return String(l).toLowerCase().indexOf('th') === 0; };
-      var thaiOk = Array.prototype.some.call(langs, isThai);
-      var lang = saved === 'th' || saved === 'en' ? saved : (isThai(langs[0]) ? 'th' : 'en');
-      if (!thaiOk) lang = 'en';
-      document.documentElement.lang = lang;
-      if (thaiOk) document.documentElement.classList.add('thai-ok');
-      document.documentElement.classList.add('js');
+      var thaiOk = root.lang === 'th' || Array.prototype.some.call(langs, isThai);
+      if (root.lang === 'en' && (saved === 'th' || (!saved && isThai(langs[0])))) {
+        location.replace('th/' + location.hash);
+        return;
+      }
+      if (thaiOk) root.classList.add('thai-ok');
+      root.classList.add('js');
     })();
   </script>
 </head>
@@ -73,18 +140,21 @@
   <header class="site-header">
     <div class="wrap bar">
       <a class="brand" href="#top"><svg aria-hidden="true"><use href="#logo"/></svg>BizCapto</a>
-      <nav class="nav" aria-label="Main" data-i18n-aria="nav.label">
+      <nav class="nav" id="mainNav" aria-label="Main" data-i18n-aria="nav.label">
         <a href="#how" data-i18n="nav.how">How it works</a>
         <a href="#features" data-i18n="nav.features">Features</a>
         <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
         <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
         <a href="#faq" data-i18n="nav.faq">FAQ</a>
       </nav>
-      <div class="lang" role="group" aria-label="Language" data-i18n-aria="lang.label">
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="lang.label" data-active="en">
         <span class="lang-thumb" aria-hidden="true"></span>
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="th" aria-pressed="false">ไทย</button>
+        <a href="./" hreflang="en" lang="en" data-lang="en" aria-current="page">EN</a>
+        <a href="th/" hreflang="th" lang="th" data-lang="th">ไทย</a>
       </div>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="Menu" data-i18n-aria="nav.menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="m1" d="M4 7h16"/><path class="m2" d="M4 12h16"/><path class="m3" d="M4 17h16"/></svg>
+      </button>
     </div>
     <span class="scroll-bar" aria-hidden="true"></span>
   </header>
@@ -95,11 +165,11 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow" data-i18n="hero.eyebrow"><span class="hl">Offline</span> business card scanner</p>
-          <h1 data-i18n="hero.title">Scan the card.<br>Keep the contact.<br><span>Stored on your phone.</span></h1>
+          <h1 data-i18n="hero.title">Scan business cards.<br>Keep every contact.<br><span>Stored on your phone.</span></h1>
           <p class="lead" data-i18n="hero.lead">BizCapto turns a paper business card into a contact you can search, call and email. It works offline, with no account and no cloud.</p>
           <div class="actions">
             <div class="stores">
-              <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>Google Play</strong></span>
+              <a class="soon" href="https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto&amp;referrer=utm_source%3Dwebsite"><small data-i18n="cta.play">Available on</small><strong>Google Play</strong></a>
               <span class="soon soon-later"><small data-i18n="cta.planned">Planned</small><strong>App Store</strong></span>
             </div>
             <a class="btn btn-line" href="#how" data-i18n="hero.secondary">See how it works</a>
@@ -311,13 +381,13 @@
         <div class="plans">
           <article class="plan">
             <h3 data-i18n="price.free.title">Try it free</h3>
-            <p class="amount" data-i18n="price.free.amount">Free to start</p>
-            <p data-i18n="price.free.text">Scan your first cards at no cost, with every feature included.</p>
+            <p class="amount" data-i18n="price.free.amount">10 cards</p>
+            <p data-i18n="price.free.text">Scan and save 10 cards, with every feature included.</p>
           </article>
           <article class="plan plan-main">
             <h3 data-i18n="price.paid.title">Unlock for good</h3>
-            <p class="amount" data-i18n="price.paid.amount">Price coming soon</p>
-            <p data-i18n="price.paid.text">One in-app purchase for unlimited cards, with nothing to renew.</p>
+            <p class="amount" data-i18n="price.paid.amount">US$8</p>
+            <p data-i18n="price.paid.text">One in-app purchase for unlimited cards, with nothing to renew. Google Play shows the price for your country.</p>
           </article>
         </div>
         <p class="fine" data-i18n="price.note">Your saved cards always stay viewable and exportable.</p>
@@ -330,15 +400,15 @@
         <div class="qa">
           <details open>
             <summary data-i18n="faq.1.q">Which languages can it read?</summary>
-            <p data-i18n="faq.1.a">English reads well. Thai is supported too and still improving, so some words may come out wrong. That is why you review every card before saving.</p>
+            <p data-i18n="faq.1.a">It reads business cards (name cards) in English and Thai. English reads well. Thai is supported too and still improving, so some words may come out wrong. That is why you review every card before saving.</p>
           </details>
           <details>
             <summary data-i18n="faq.2.q">Do I need the internet?</summary>
             <p data-i18n="faq.2.a">No. Scanning, reading and saving all happen on the phone. Only the LinkedIn button opens your browser, and only when you tap it.</p>
           </details>
           <details>
-            <summary data-i18n="faq.3.q">When can I download it?</summary>
-            <p data-i18n="faq.3.a">BizCapto is still in development and is not on Google Play yet. It will need Android 7.0 or newer.</p>
+            <summary data-i18n="faq.3.q">Where can I download it?</summary>
+            <p data-i18n="faq.3.a">On <a href="https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto&amp;referrer=utm_source%3Dwebsite">Google Play</a>, for Android 7.0 or newer. Save 10 cards first, then unlock unlimited cards with one purchase if you like it.</p>
           </details>
           <details>
             <summary data-i18n="faq.4.q">Is there an iPhone version?</summary>
@@ -367,7 +437,7 @@
         </svg>
         <h2 data-i18n="close.title">Your next stack of cards deserves better than a desk drawer.</h2>
         <div class="stores">
-              <span class="soon"><small data-i18n="cta.soon">Coming soon</small><strong>Google Play</strong></span>
+              <a class="soon" href="https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto&amp;referrer=utm_source%3Dwebsite"><small data-i18n="cta.play">Available on</small><strong>Google Play</strong></a>
               <span class="soon soon-later"><small data-i18n="cta.planned">Planned</small><strong>App Store</strong></span>
             </div>
       </div>
@@ -389,7 +459,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
 
-  <script src="th.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

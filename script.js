@@ -1,5 +1,5 @@
-// BizCapto website: สลับภาษา ตัวสาธิตการสแกน และการเคลื่อนไหวของหน้าเว็บ
-const TH = window.BIZCAPTO_TH;
+// BizCapto website: เมนู ภาษา ตัวสาธิตการสแกน และการเคลื่อนไหวของหน้าเว็บ
+// หน้าอังกฤษ = index.html, หน้าไทย = th/index.html (สร้างจาก th.js ด้วย tools/build_th.py)
 const LANG_KEY = 'bizcapto-lang';
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -15,55 +15,34 @@ const SAMPLE_CARDS = [
   { name: 'Lucas Moreau', nickname: 'Luc', title: 'Sales Engineer', company: 'Field Note Systems', phone: '+1 555 0105', email: 'lucas@example.com', look: 'night' },
 ];
 
-// ---------- สลับภาษา ----------
-// ภาษาอังกฤษอ่านจากหน้าเว็บตอนเปิด ภาษาไทยอ่านจาก th.js
-const textNodes = [...document.querySelectorAll('[data-i18n]')].map((el) => ({ el, key: el.dataset.i18n, en: el.innerHTML }));
-const ariaNodes = [...document.querySelectorAll('[data-i18n-aria]')].map((el) => ({ el, key: el.dataset.i18nAria, en: el.getAttribute('aria-label') }));
-const placeholderNodes = [...document.querySelectorAll('[data-i18n-placeholder]')].map((el) => ({ el, key: el.dataset.i18nPlaceholder, en: el.placeholder }));
-const altNodes = [...document.querySelectorAll('[data-i18n-alt]')].map((el) => ({ el, key: el.dataset.i18nAlt, en: el.alt }));
-const metaDesc = document.querySelector('meta[name="description"]');
-const metaEn = { title: document.title, desc: metaDesc.content };
-const langSwitch = document.querySelector('.lang');
-const langButtons = langSwitch.querySelectorAll('[data-lang]');
-
-function setLanguage(lang) {
-  const thai = lang === 'th';
-  const pick = (node) => (thai && node.key in TH ? TH[node.key] : node.en);
-
-  document.documentElement.lang = lang;
-  textNodes.forEach((n) => { n.el.innerHTML = pick(n); });
-  ariaNodes.forEach((n) => n.el.setAttribute('aria-label', pick(n)));
-  placeholderNodes.forEach((n) => { n.el.placeholder = pick(n); });
-  altNodes.forEach((n) => { n.el.alt = pick(n); });
-  document.title = thai ? TH['meta.title'] : metaEn.title;
-  metaDesc.content = thai ? TH['meta.desc'] : metaEn.desc;
-}
-
-function markLanguage(lang) {
-  langSwitch.dataset.active = lang;
-  langButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-}
-
-langButtons.forEach((button) => {
-  button.addEventListener('click', async () => {
-    const lang = button.dataset.lang;
-    if (lang === document.documentElement.lang) return;
-    markLanguage(lang);
-    try { localStorage.setItem(LANG_KEY, lang); } catch { /* เบราว์เซอร์ปิดการเก็บค่า */ }
-    if (reducedMotion) {
-      setLanguage(lang);
-      return;
-    }
-    document.body.classList.add('swapping');
-    await wait(170);
-    setLanguage(lang);
-    document.body.classList.remove('swapping');
+// ---------- ภาษา ----------
+// ปุ่ม EN / ไทย เป็นลิงก์ไปอีกหน้า จำภาษาที่เลือกไว้ ครั้งหน้าเปิดหน้าอังกฤษจะพาไปหน้าไทยให้ (ดูสคริปต์ใน <head>)
+document.querySelectorAll('.lang [data-lang]').forEach((link) => {
+  link.addEventListener('click', () => {
+    try { localStorage.setItem(LANG_KEY, link.dataset.lang); } catch { /* เบราว์เซอร์ปิดการเก็บค่า */ }
   });
 });
 
-const startLang = document.documentElement.lang === 'th' ? 'th' : 'en';
-setLanguage(startLang);
-markLanguage(startLang);
+// ---------- เมนูบนจอแคบ (☰) ----------
+const header = document.querySelector('.site-header');
+const menuBtn = document.getElementById('menuBtn');
+const mainNav = document.getElementById('mainNav');
+
+function setMenu(open) {
+  header.classList.toggle('menu-open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+}
+menuBtn.addEventListener('click', () => setMenu(!header.classList.contains('menu-open')));
+mainNav.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && header.classList.contains('menu-open')) {
+    setMenu(false);
+    menuBtn.focus();
+  }
+});
+document.addEventListener('click', (e) => { if (!header.contains(e.target)) setMenu(false); });
+// ขยายหน้าต่างจนเมนูปกติกลับมา ให้ปิดเมนูแบบเลื่อนลงไปด้วย
+window.matchMedia('(min-width: 981px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
 
 // ---------- ตัวสาธิตการสแกน ----------
 // 0 เล็งกล้อง > 1 กำลังอ่าน > 2 พิมพ์ข้อมูลลงช่อง > 3 บันทึกแล้ว แล้วเริ่มใบถัดไป

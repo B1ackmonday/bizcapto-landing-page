@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<!-- สร้างอัตโนมัติจาก index.html + th.js ด้วย tools/build_th.py ห้ามแก้ไฟล์นี้ตรงๆ -->
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BizCapto | แอปสแกนนามบัตร เก็บรายชื่อไว้ในมือถือของคุณ</title>
+  <meta name="description" content="BizCapto สแกนนามบัตรเป็นรายชื่อที่ค้นหาและจัดกลุ่มได้ ทักแชต LINE หรือ WhatsApp ได้ทันที ใช้งานได้โดยไม่ต้องต่อเน็ต ไม่ต้องสมัครบัญชี และเก็บข้อมูลไว้ในมือถือของคุณ">
+  <meta name="google-site-verification" content="9E5ic6exMu49nEAiIoT-Es5bumaMfsEbR8roI2fSj4I">
+  <link rel="canonical" href="https://rmshowdown.github.io/bizcapto/th/">
+  <!-- หน้าเดียวกัน 2 ภาษา: บอก Google ว่าหน้าไหนภาษาอะไร (ใส่เหมือนกันทั้ง 2 หน้า) -->
+  <link rel="alternate" hreflang="en" href="https://rmshowdown.github.io/bizcapto/">
+  <link rel="alternate" hreflang="th" href="https://rmshowdown.github.io/bizcapto/th/">
+  <link rel="alternate" hreflang="x-default" href="https://rmshowdown.github.io/bizcapto/">
+  <!-- ข้อมูลให้ Google รู้ว่าหน้านี้คือแอปมือถือ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BizCapto",
+    "alternateName": "BizCapto: Business Card Scan",
+    "description": "BizCapto สแกนนามบัตรเป็นรายชื่อที่ค้นหาและจัดกลุ่มได้ ทักแชต LINE หรือ WhatsApp ได้ทันที ใช้งานได้โดยไม่ต้องต่อเน็ต ไม่ต้องสมัครบัญชี และเก็บข้อมูลไว้ในมือถือของคุณ",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Android 7.0 or newer",
+    "inLanguage": "th",
+    "url": "https://rmshowdown.github.io/bizcapto/th/",
+    "image": "https://rmshowdown.github.io/bizcapto/img/og-image-th.png",
+    "installUrl": "https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "10 cards included. Unlimited cards with a one-time in-app purchase." },
+    "featureList": ["Business card scanner with on-device OCR", "Auto crop and auto capture", "Organize business cards into groups", "Search, star, call, email and share contacts", "Chat on LINE or WhatsApp from a card in one tap", "Find a company on the map from its card", "Export and import Excel (.xlsx)", "Works offline, no account"],
+    "publisher": { "@type": "Organization", "name": "RM Showdown", "email": "rmshowdown.dev@gmail.com" }
+  }
+  </script>
+  <!-- คำถามที่พบบ่อยให้ Google อ่านได้: ข้อความต้องตรงกับหัวข้อ FAQ บนหน้า (หน้าไทยสร้างจาก th.js อัตโนมัติ) -->
+  <script type="application/ld+json" id="faq-ld">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "อ่านนามบัตรภาษาอะไรได้บ้าง",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ภาษาอังกฤษอ่านได้ดี ภาษาไทยอ่านได้แล้วแต่ยังอยู่ระหว่างปรับปรุง บางคำอาจผิด คุณจึงตรวจและแก้ได้ทุกใบก่อนบันทึก"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ต้องต่อเน็ตไหม",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ไม่ต้อง การสแกน อ่านข้อความ และบันทึกทำในมือถือทั้งหมด มีเพียงปุ่ม LinkedIn ที่เปิดเบราว์เซอร์เมื่อคุณกดเอง"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ดาวน์โหลดได้ที่ไหน",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ดาวน์โหลดได้บน Google Play ใช้กับ Android 7.0 ขึ้นไป ลองบันทึกได้ 10 ใบก่อน ถ้าชอบค่อยซื้อครั้งเดียวเพื่อบันทึกได้ไม่จำกัด"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "มีรุ่น iPhone ไหม",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "มีในแผน โดยจะเปิด Android ก่อน ส่วนรุ่น iPhone ยังพัฒนาอยู่"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "หน้าจอแอปมีภาษาอะไรบ้าง",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "แอปใช้ภาษาตามที่ตั้งไว้ในมือถือ ตอนนี้มีภาษาอังกฤษและไทย และมีแผนเพิ่มภาษาอื่น ๆ"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ถ้าเปลี่ยนมือถือต้องทำอย่างไร",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ส่งออกนามบัตรเป็นไฟล์ Excel จากเครื่องเก่า แล้วนำเข้าในเครื่องใหม่ เนื่องจากไม่มีสำเนาบนคลาวด์ จึงควรเก็บไฟล์นั้นให้ดี"
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- ภาพและข้อความตอนแชร์ลิงก์ใน LINE, Facebook, X -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BizCapto">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:title" content="BizCapto | แอปสแกนนามบัตร เก็บรายชื่อไว้ในมือถือของคุณ">
+  <meta property="og:description" content="BizCapto สแกนนามบัตรเป็นรายชื่อที่ค้นหาและจัดกลุ่มได้ ทักแชต LINE หรือ WhatsApp ได้ทันที ใช้งานได้โดยไม่ต้องต่อเน็ต ไม่ต้องสมัครบัญชี และเก็บข้อมูลไว้ในมือถือของคุณ">
+  <meta property="og:url" content="https://rmshowdown.github.io/bizcapto/th/">
+  <meta property="og:image" content="https://rmshowdown.github.io/bizcapto/img/og-image-th.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="500">
+  <meta property="og:image:alt" content="มือถือสแกนนามบัตรตัวอย่าง แล้ว BizCapto กรอกข้อมูลติดต่อให้">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0f1117">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f1117'/%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round' transform='translate(11 11) scale(.78)'%3E%3Cpath d='M77 31A33 33 0 1 0 77 69' stroke='%235b5fea' stroke-width='8'/%3E%3Cpath d='M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75' stroke='%23818cf8' stroke-width='5.5'/%3E%3Cpath d='M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38' stroke='%23eceef5' stroke-width='6.5'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../fonts/fonts.css">
+  <link rel="stylesheet" href="../styles.css">
+  <script>
+    // หน้าอังกฤษ (index.html) และหน้าไทย (th/index.html) เป็นคนละหน้า
+    // ปุ่ม EN / ไทย โชว์เฉพาะเครื่องที่ตั้งภาษาไทยไว้ (หรือตอนอยู่หน้าไทย)
+    // เปิดหน้าอังกฤษ: ถ้าเคยกดเลือกไทย หรือยังไม่เคยเลือกแต่ภาษาแรกของเครื่องเป็นไทย ให้ไปหน้าไทย
+    // (Google อ่านเว็บเป็นภาษาอังกฤษ จึงไม่ถูกพาไป และรู้จักหน้าไทยจาก hreflang ด้านบน)
+    (function () {
+      var root = document.documentElement;
+      var saved = null;
+      try { saved = localStorage.getItem('bizcapto-lang'); } catch (e) { /* เบราว์เซอร์ปิดการเก็บค่า */ }
+      var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      var isThai = function (l) { return String(l).toLowerCase().indexOf('th') === 0; };
+      var thaiOk = root.lang === 'th' || Array.prototype.some.call(langs, isThai);
+      if (root.lang === 'en' && (saved === 'th' || (!saved && isThai(langs[0])))) {
+        location.replace('th/' + location.hash);
+        return;
+      }
+      if (thaiOk) root.classList.add('thai-ok');
+      root.classList.add('js');
+    })();
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" class="sprite" aria-hidden="true">
+    <symbol id="logo" viewBox="0 0 100 100">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M77 31A33 33 0 1 0 77 69" stroke="#5b5fea" stroke-width="8"/>
+        <path d="M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75" stroke="#818cf8" stroke-width="5.5"/>
+        <path d="M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38" stroke="#eceef5" stroke-width="6.5"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <a class="skip" href="#how" data-i18n="skip">ข้ามไปที่เนื้อหา</a>
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="#top"><svg aria-hidden="true"><use href="#logo"/></svg>BizCapto</a>
+      <nav class="nav" id="mainNav" aria-label="เมนูหลัก" data-i18n-aria="nav.label">
+        <a href="#how" data-i18n="nav.how">วิธีใช้</a>
+        <a href="#features" data-i18n="nav.features">ฟีเจอร์</a>
+        <a href="#privacy" data-i18n="nav.privacy">ความเป็นส่วนตัว</a>
+        <a href="#pricing" data-i18n="nav.pricing">ราคา</a>
+        <a href="#faq" data-i18n="nav.faq">คำถามที่พบบ่อย</a>
+      </nav>
+      <div class="lang" role="group" aria-label="ภาษา" data-i18n-aria="lang.label" data-active="th">
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <a href="../" hreflang="en" lang="en" data-lang="en">EN</a>
+        <a href="./" hreflang="th" lang="th" data-lang="th" aria-current="page">ไทย</a>
+      </div>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="เมนู" data-i18n-aria="nav.menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="m1" d="M4 7h16"/><path class="m2" d="M4 12h16"/><path class="m3" d="M4 17h16"/></svg>
+      </button>
+    </div>
+    <span class="scroll-bar" aria-hidden="true"></span>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="hero">
+      <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="hero.eyebrow">แอปสแกนนามบัตรแบบ<span class="hl">ออฟไลน์</span></p>
+          <h1 data-i18n="hero.title">สแกนนามบัตร<br>ได้รายชื่อทันที<br><span>เก็บไว้ในมือถือคุณเท่านั้น</span></h1>
+          <p class="lead" data-i18n="hero.lead">BizCapto เปลี่ยนนามบัตรกระดาษเป็นรายชื่อที่ค้นหา โทร และส่งอีเมลได้ทันที ใช้ได้แม้ไม่มีเน็ต ไม่ต้องสมัครบัญชี และไม่มีคลาวด์</p>
+          <div class="actions">
+            <div class="stores">
+              <a class="soon" href="https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto&amp;referrer=utm_source%3Dwebsite"><small data-i18n="cta.play">มีให้โหลดแล้วบน</small><strong>Google Play</strong></a>
+              <span class="soon soon-later"><small data-i18n="cta.planned">มีแผนทำบน</small><strong>App Store</strong></span>
+            </div>
+            <a class="btn btn-line" href="#how" data-i18n="hero.secondary">ดูวิธีใช้</a>
+          </div>
+        </div>
+
+        <figure class="demo">
+          <div class="bob">
+          <div class="phone" id="phone" data-step="0" role="img" aria-label="ภาพจำลอง: มือถือสแกนนามบัตรตัวอย่าง แล้วกรอกข้อมูลลงช่องให้" data-i18n-aria="demo.alt">
+            <div class="screen" aria-hidden="true">
+              <span class="flash"></span>
+              <div class="cam">
+                <p class="cam-hint" data-i18n="demo.hint">วางนามบัตรให้อยู่ในกรอบ</p>
+                <div class="cam-target">
+                  <div class="bizcard" id="bizcard">
+                    <span class="cl cl-name" data-card="headline">Maya Collins (May)</span>
+                    <span class="cl cl-title" data-card="title">Product Designer</span>
+                    <span class="cl cl-co" data-card="company">Harbor Lane Studio</span>
+                    <span class="cl cl-tel" data-card="phone">+1 555 0100</span>
+                    <span class="cl cl-mail" data-card="email">maya@example.com</span>
+                  </div>
+                  <span class="scanline"></span>
+                  <i></i><i></i><i></i><i></i>
+                </div>
+                <span class="shutter"></span>
+              </div>
+              <div class="review">
+                <p class="review-title" data-i18n="demo.review">ตรวจข้อมูลนามบัตร</p>
+                <dl>
+                  <div style="--i:0"><dt data-i18n="demo.name">ชื่อ</dt><dd data-field="name">Maya Collins</dd></div>
+                  <div style="--i:1"><dt data-i18n="demo.nick">ชื่อเล่น</dt><dd data-field="nickname">May</dd></div>
+                  <div style="--i:2"><dt data-i18n="demo.jobtitle">ตำแหน่ง</dt><dd data-field="title">Product Designer</dd></div>
+                  <div style="--i:3"><dt data-i18n="demo.company">บริษัท</dt><dd data-field="company">Harbor Lane Studio</dd></div>
+                  <div style="--i:4"><dt data-i18n="demo.phone">เบอร์โทร</dt><dd data-field="phone">+1 555 0100</dd></div>
+                  <div style="--i:5"><dt data-i18n="demo.email">อีเมล</dt><dd data-field="email">maya@example.com</dd></div>
+                </dl>
+                <span class="save" data-i18n="demo.save">บันทึก</span>
+                <span class="saved" data-i18n="demo.saved">บันทึกไว้ในมือถือแล้ว</span>
+              </div>
+            </div>
+          </div>
+          </div>
+          <figcaption>
+            <span data-i18n="demo.caption">ภาพจำลอง ใช้นามบัตรตัวอย่างที่สมมติขึ้น</span>
+            <button type="button" class="replay" id="demoToggle" data-paused="false"><span class="when-playing" data-i18n="demo.pause">หยุด</span><span class="when-paused" data-i18n="demo.play">เล่น</span></button>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="belt" id="belt" aria-hidden="true">
+      <div class="belt-track" id="beltTrack"></div>
+    </div>
+
+    <section id="how" class="section how">
+      <div class="wrap">
+        <h2 data-i18n="how.title">แค่ 3 ขั้นตอน เร็วพอ ๆ กับการจับมือทักทาย</h2>
+        <div class="steps-wrap" id="steps">
+        <span class="steps-line" aria-hidden="true"><i></i></span>
+        <ol class="steps">
+          <li>
+            <span class="num">1</span>
+            <h3 data-i18n="how.1.title">เล็งกล้อง</h3>
+            <p data-i18n="how.1.text">วางนามบัตรให้อยู่ในกรอบ หรือเลือกรูปจากแกลเลอรี ถ้าที่มืดก็เปิดไฟฉายได้</p>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <h3 data-i18n="how.2.title">แอปอ่านให้</h3>
+            <p data-i18n="how.2.text">แอปอ่านข้อความในมือถือของคุณ แล้วแยกเป็นชื่อ ตำแหน่ง บริษัท เบอร์โทร และอีเมล</p>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <h3 data-i18n="how.3.title">ตรวจแล้วบันทึก</h3>
+            <p data-i18n="how.3.text">แก้จุดที่อ่านไม่ตรงได้ก่อนบันทึก และดูข้อความต้นฉบับที่สแกนได้ควบคู่กัน</p>
+          </li>
+        </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="screens" class="section screens">
+      <div class="wrap">
+        <h2 data-i18n="screens.title">หน้าตาแอปจริง</h2>
+        <p class="lead" data-i18n="screens.lead">ภาพหน้าจอจริงจากแอป รายชื่อทั้งหมดเป็นข้อมูลสมมติ</p>
+        <div class="shots">
+          <figure class="shot">
+            <img src="../img/screen-cards.webp" width="857" height="1785" loading="lazy" decoding="async" alt="หน้ารายการนามบัตร มีช่องค้นหา ตัวกรองติดดาวและกลุ่ม และปุ่ม LinkedIn, WhatsApp, แผนที่ และแชร์บนการ์ดแต่ละใบ" data-i18n-alt="หน้ารายการนามบัตร มีช่องค้นหา ตัวกรองติดดาวและกลุ่ม และปุ่ม LinkedIn, WhatsApp, แผนที่ และแชร์บนการ์ดแต่ละใบ">
+            <figcaption>
+              <h3 data-i18n="screens.1.title">นามบัตรทั้งหมดอยู่ในที่เดียว</h3>
+              <p data-i18n="screens.1.text">ค้นหา ติดดาว จัดกลุ่ม เรียงลำดับ แล้วโทร ส่งอีเมล หรือทักแชตได้ทันที</p>
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="../img/screen-review.webp" width="857" height="1785" loading="lazy" decoding="async" alt="หน้าตรวจข้อมูล (Check details) มีช่องข้อมูลติดต่อ และกลุ่มที่แนะนำให้เลือก" data-i18n-alt="หน้าตรวจข้อมูล (Check details) มีช่องข้อมูลติดต่อ และกลุ่มที่แนะนำให้เลือก">
+            <figcaption>
+              <h3 data-i18n="screens.2.title">ตรวจก่อนบันทึก</h3>
+              <p data-i18n="screens.2.text">แก้ได้ทุกช่อง แตะบรรทัดที่สแกนได้เพื่อใส่ลงช่อง และเลือกกลุ่มได้เลย</p>
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="../img/screen-privacy.webp" width="857" height="1785" loading="lazy" decoding="async" alt="หน้าตั้งค่า มีจำนวนนามบัตร ปุ่มส่งออกและนำเข้า Excel และเลือกได้ว่าจะโชว์ไอคอนไหนบนการ์ด" data-i18n-alt="หน้าตั้งค่า มีจำนวนนามบัตร ปุ่มส่งออกและนำเข้า Excel และเลือกได้ว่าจะโชว์ไอคอนไหนบนการ์ด">
+            <figcaption>
+              <h3 data-i18n="screens.3.title">อยู่ในมือถือคุณเท่านั้น</h3>
+              <p data-i18n="screens.3.text">ส่งออกเป็น Excel เมื่ออยากเก็บสำรอง ไม่ต้องมีบัญชี ไม่มีคลาวด์</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section features">
+      <div class="wrap">
+        <h2 data-i18n="feat.title">นามบัตรทั้งกองที่หยิบมาใช้ได้จริง</h2>
+        <div class="bento">
+          <article class="tile tile-search">
+            <h3 data-i18n="feat.search.title">หาใครก็เจอในไม่กี่วินาที</h3>
+            <p data-i18n="feat.search.text">ค้นจากชื่อ ชื่อเล่น ตำแหน่ง บริษัท เบอร์โทร หรืออีเมล เรียงได้ทั้งล่าสุด ตามตัวอักษร หรือเก่าไปใหม่ ลองพิมพ์ดูได้เลย</p>
+            <div class="search-demo">
+              <label class="sr-only" for="q" data-i18n="feat.search.label">ค้นหานามบัตรตัวอย่าง</label>
+              <input id="q" type="search" autocomplete="off" placeholder="ค้นหานามบัตร" data-i18n-placeholder="ค้นหานามบัตร">
+              <!-- data-find = ข้อความที่ค้นได้, data-phone = เบอร์ (ค้นด้วยตัวเลขอย่างน้อย 3 ตัว เหมือนในแอป) -->
+              <ul id="people">
+                <li data-find="maya collins may product designer harbor lane studio maya@example.com" data-phone="+1 555 0100"><b>Maya Collins</b><span class="co">Harbor Lane Studio</span><span class="ph">+1 555 0100</span></li>
+                <li data-find="daniel brooks dan head baker river bakery daniel@example.com" data-phone="+1 555 0101"><b>Daniel Brooks</b><span class="co">River Bakery</span><span class="ph">+1 555 0101</span></li>
+                <li data-find="lena fischer len operations lead blue door logistics lena@example.com" data-phone="+1 555 0102"><b>Lena Fischer</b><span class="co">Blue Door Logistics</span><span class="ph">+1 555 0102</span></li>
+                <li data-find="omar haddad omi clinic manager northpoint clinic omar@example.com" data-phone="+1 555 0103"><b>Omar Haddad</b><span class="co">Northpoint Clinic</span><span class="ph">+1 555 0103</span></li>
+              </ul>
+              <p class="none" id="none" hidden data-i18n="feat.search.none">ไม่พบนามบัตรตัวอย่างที่ตรงกัน</p>
+            </div>
+          </article>
+
+          <article class="tile tile-excel">
+            <h3 data-i18n="feat.excel.title">ข้อมูลของคุณ เปิดใน Excel ได้</h3>
+            <p data-i18n="feat.excel.text">ส่งออกนามบัตรทั้งหมดเป็นไฟล์ .xlsx และนำกลับเข้ามาได้ ใช้ย้ายไปมือถือเครื่องใหม่ได้ด้วย</p>
+            <!-- แผ่น Excel ตัวอย่าง: หัวคอลัมน์ตรงกับไฟล์ที่แอปส่งออกจริง ภาพเคลื่อนไหวอยู่ใน script.js หัวข้อ "แผ่น Excel" -->
+            <div class="xl" id="xl" role="img" aria-label="ตัวอย่างไฟล์ Excel ที่ส่งออก มีคอลัมน์ Name, Nickname, Job Title, Company, Phone และ Email" data-i18n-aria="feat.excel.alt">
+              <div class="xl-bar" aria-hidden="true">
+                <svg viewBox="0 0 16 16"><rect x="1.5" y="1.5" width="13" height="13" rx="2"/><path d="M1.5 6h13M1.5 10.5h13M6 6v8.5M10.5 6v8.5"/></svg>
+                <span>contacts.xlsx</span>
+              </div>
+              <div class="xl-view" id="xlView" aria-hidden="true">
+                <div class="xl-tilt" id="xlTilt">
+                  <div class="xl-stage" id="xlStage">
+                    <table class="xl-grid">
+                  <tr class="xl-letters"><th class="xl-corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                  <tr class="xl-head"><th class="xl-num">1</th><th>Name</th><th>Nickname</th><th>Job Title</th><th>Company</th><th>Phone</th><th>Email</th></tr>
+                  <tr><th class="xl-num">2</th><td>Maya Collins</td><td>May</td><td>Product Designer</td><td>Harbor Lane Studio</td><td>+1 555 0100</td><td>maya@example.com</td></tr>
+                  <tr><th class="xl-num">3</th><td>Daniel Brooks</td><td>Dan</td><td>Head Baker</td><td>River Bakery</td><td>+1 555 0101</td><td>daniel@example.com</td></tr>
+                  <tr><th class="xl-num">4</th><td>Lena Fischer</td><td>Len</td><td>Operations Lead</td><td>Blue Door Logistics</td><td>+1 555 0102</td><td>lena@example.com</td></tr>
+                  <tr><th class="xl-num">5</th><td>Omar Haddad</td><td>Omi</td><td>Clinic Manager</td><td>Northpoint Clinic</td><td>+1 555 0103</td><td>omar@example.com</td></tr>
+                    </table>
+                    <span class="xl-hl" id="xlHl"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="xl-foot" aria-hidden="true">
+                <span class="xl-chip" id="xlChip">A · Name</span>
+                <span class="xl-all" id="xlAll" data-i18n="feat.excel.all">ครบ 6 คอลัมน์ ทุกใบ</span>
+                <span class="xl-hint" data-i18n="feat.excel.hint">ปัดเพื่อดูทั้งแผ่น</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="tile">
+            <svg class="ico ico-call" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 6-3 2a13 13 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A18 18 0 0 1 4 5a2 2 0 0 1 2-2Z"/></svg>
+            <h3 data-i18n="feat.act.title">โทร อีเมล หรือทักแชตได้ทันที</h3>
+            <p data-i18n="feat.act.text">โทร ส่งอีเมล ทักแชต LINE หรือ WhatsApp ค้นหาชื่อใน LinkedIn หรือเปิดแผนที่หาบริษัท ได้จากหน้านามบัตรเลย</p>
+          </article>
+          <article class="tile">
+            <svg class="ico ico-share" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg>
+            <h3 data-i18n="feat.share.title">แชร์เข้า LINE และแอปอื่น</h3>
+            <p data-i18n="feat.share.text">ส่งนามบัตรเป็นข้อความผ่านเมนูแชร์ของมือถือ</p>
+          </article>
+          <article class="tile">
+            <svg class="ico ico-dup" viewBox="0 0 24 24" aria-hidden="true"><rect class="dup-a" x="3" y="3" width="13" height="13" rx="3"/><rect class="dup-b" x="8" y="8" width="13" height="13" rx="3"/></svg>
+            <h3 data-i18n="feat.dup.title">ไม่บันทึกซ้ำ</h3>
+            <p data-i18n="feat.dup.text">แอปเตือนเมื่อเบอร์โทรหรืออีเมลนั้นมีอยู่แล้ว</p>
+          </article>
+          <article class="tile">
+            <svg class="ico ico-star" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2 1.2-6.8-5-4.9 6.9-1Z"/></svg>
+            <h3 data-i18n="feat.star.title">ติดดาว จัดกลุ่ม และโหมดมืด</h3>
+            <p data-i18n="feat.star.text">ติดดาวคนสำคัญ แยกนามบัตรเป็นกลุ่ม เช่น ลูกค้า หรือซัพพลายเออร์ แล้วเลือกดูทีละกลุ่มได้ รองรับโหมดสว่าง มืด และตามระบบ</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" class="section privacy">
+      <div class="priv-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="wrap privacy-grid">
+        <div>
+          <h2 data-i18n="priv.title">นามบัตรคือข้อมูลส่วนตัวของคนอื่น เราจึงดูแลอย่างระมัดระวัง</h2>
+          <p class="lead" data-i18n="priv.lead">แอปไม่มีสิทธิ์ใช้อินเทอร์เน็ต ข้อมูลนามบัตรจึงอยู่ในมือถือคุณเท่านั้น จนกว่าคุณจะส่งออกหรือแชร์เอง</p>
+          <a class="text-link" href="../privacy.html" data-i18n="priv.more">อ่านนโยบายความเป็นส่วนตัวฉบับเต็ม (ภาษาอังกฤษ)</a>
+        </div>
+        <ul class="checks">
+          <li data-i18n="priv.1">ไม่ต้องสมัครบัญชีหรือล็อกอิน</li>
+          <li data-i18n="priv.2">ไม่มีการซิงก์ขึ้นคลาวด์ และไม่มี analytics</li>
+          <li data-i18n="priv.3">ขอสิทธิ์ใช้กล้องอย่างเดียว</li>
+          <li data-i18n="priv.4">รูปที่ถ่ายในแอปถูกลบเมื่อบันทึกหรือออกจากหน้าตรวจข้อมูล</li>
+          <li data-i18n="priv.5">ไม่ถูกสำรองขึ้นคลาวด์อัตโนมัติของ Android</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pricing" class="section pricing">
+      <div class="wrap">
+        <h2 data-i18n="price.title">จ่ายครั้งเดียว ไม่มีรายเดือน</h2>
+        <div class="plans">
+          <article class="plan">
+            <h3 data-i18n="price.free.title">ลองใช้ฟรี</h3>
+            <p class="amount" data-i18n="price.free.amount">10 ใบ</p>
+            <p data-i18n="price.free.text">สแกนและบันทึกได้ 10 ใบ ใช้ได้ทุกฟีเจอร์</p>
+          </article>
+          <article class="plan plan-main">
+            <h3 data-i18n="price.paid.title">ปลดล็อกถาวร</h3>
+            <p class="amount" data-i18n="price.paid.amount">269 บาท</p>
+            <p data-i18n="price.paid.text">ซื้อครั้งเดียวในแอป บันทึกนามบัตรได้ไม่จำกัด ไม่ต้องต่ออายุ</p>
+          </article>
+        </div>
+        <p class="fine" data-i18n="price.note">นามบัตรที่บันทึกแล้วยังดูและส่งออกได้เสมอ</p>
+      </div>
+    </section>
+
+    <section id="faq" class="section faq">
+      <div class="wrap faq-grid">
+        <h2 data-i18n="faq.title">คำถามที่พบบ่อย</h2>
+        <div class="qa">
+          <details open>
+            <summary data-i18n="faq.1.q">อ่านนามบัตรภาษาอะไรได้บ้าง</summary>
+            <p data-i18n="faq.1.a">ภาษาอังกฤษอ่านได้ดี ภาษาไทยอ่านได้แล้วแต่ยังอยู่ระหว่างปรับปรุง บางคำอาจผิด คุณจึงตรวจและแก้ได้ทุกใบก่อนบันทึก</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.2.q">ต้องต่อเน็ตไหม</summary>
+            <p data-i18n="faq.2.a">ไม่ต้อง การสแกน อ่านข้อความ และบันทึกทำในมือถือทั้งหมด มีเพียงปุ่ม LinkedIn ที่เปิดเบราว์เซอร์เมื่อคุณกดเอง</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.3.q">ดาวน์โหลดได้ที่ไหน</summary>
+            <p data-i18n="faq.3.a">ดาวน์โหลดได้บน <a href="https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto&amp;referrer=utm_source%3Dwebsite">Google Play</a> ใช้กับ Android 7.0 ขึ้นไป ลองบันทึกได้ 10 ใบก่อน ถ้าชอบค่อยซื้อครั้งเดียวเพื่อบันทึกได้ไม่จำกัด</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.4.q">มีรุ่น iPhone ไหม</summary>
+            <p data-i18n="faq.4.a">มีในแผน โดยจะเปิด Android ก่อน ส่วนรุ่น iPhone ยังพัฒนาอยู่</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.5.q">หน้าจอแอปมีภาษาอะไรบ้าง</summary>
+            <p data-i18n="faq.5.a">แอปใช้ภาษาตามที่ตั้งไว้ในมือถือ ตอนนี้มีภาษาอังกฤษและไทย และมีแผนเพิ่มภาษาอื่น ๆ</p>
+          </details>
+          <details>
+            <summary data-i18n="faq.6.q">ถ้าเปลี่ยนมือถือต้องทำอย่างไร</summary>
+            <p data-i18n="faq.6.a">ส่งออกนามบัตรเป็นไฟล์ Excel จากเครื่องเก่า แล้วนำเข้าในเครื่องใหม่ เนื่องจากไม่มีสำเนาบนคลาวด์ จึงควรเก็บไฟล์นั้นให้ดี</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <svg class="closing-logo" viewBox="0 0 100 100" aria-hidden="true">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path pathLength="1" d="M8 25V14a6 6 0 0 1 6-6h11M75 8h11a6 6 0 0 1 6 6v11M92 75v11a6 6 0 0 1-6 6H75M25 92H14a6 6 0 0 1-6-6V75" stroke="#818cf8" stroke-width="5.5"/>
+            <path pathLength="1" d="M77 31A33 33 0 1 0 77 69" stroke="#5b5fea" stroke-width="8"/>
+            <path pathLength="1" d="M38 30v40h17a10 10 0 0 0 0-20H38m0 0h14a10 10 0 0 0 0-20H38" stroke="#eceef5" stroke-width="6.5"/>
+          </g>
+        </svg>
+        <h2 data-i18n="close.title">นามบัตรกองต่อไปของคุณ ไม่ควรจบที่ลิ้นชัก</h2>
+        <div class="stores">
+              <a class="soon" href="https://play.google.com/store/apps/details?id=com.rmshowdown.bizcapto&amp;referrer=utm_source%3Dwebsite"><small data-i18n="cta.play">มีให้โหลดแล้วบน</small><strong>Google Play</strong></a>
+              <span class="soon soon-later"><small data-i18n="cta.planned">มีแผนทำบน</small><strong>App Store</strong></span>
+            </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <span>© 2026 BizCapto · RM Showdown</span>
+      <span class="foot-links">
+        <a href="../privacy.html" data-i18n="foot.privacy">นโยบายความเป็นส่วนตัว (EN)</a>
+        <span><span data-i18n="foot.contact">ติดต่อ</span> <a href="mailto:rmshowdown.dev@gmail.com">rmshowdown.dev@gmail.com</a></span>
+      </span>
+      <span data-i18n="foot.note">เว็บนี้ไม่ใช้คุกกี้และไม่มี analytics</span>
+    </div>
+  </footer>
+
+  <button type="button" class="to-top" id="toTop" aria-label="กลับขึ้นด้านบน" data-i18n-aria="top.label">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="../script.js"></script>
+</body>
+</html>
